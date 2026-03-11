@@ -9,7 +9,7 @@
 | Bassant Mahmoud Mohamed Mahmoud | Frontend Developer |
 | Youssef Mohamed Seifallah Mohamed | Frontend Developer |
 | Asmaa Hassan Mohammed Hassanin | Frontend Developer |
-| Nour Haitham Omar Mohamed | Frontend Developer |
+| Nour Haitham Omar Mohamed | Full Stack Developer |
 
 ---
 
