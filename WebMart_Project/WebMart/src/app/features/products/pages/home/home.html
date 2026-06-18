@@ -1,1 +1,86 @@
-<p>home works!</p>
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">Simple shopping with style</span>
+    <h1>Simple & Comfortable Online Shopping</h1>
+    <p>Discover curated collections, fast delivery, and effortless everyday looks designed just for you.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" routerLink="/">Shop Now</a>
+      <a class="btn btn-secondary" href="#featured">Explore</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-frame">
+      <div class="hero-card">
+        <span>New season drop</span>
+        <h2>Must-have essentials for every wardrobe</h2>
+        <p>Fresh styles with premium comfort and effortless elegance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section categories-section">
+  <div class="section-header">
+    <div>
+      <p>Shop by Category</p>
+      <h2>Browse top collections</h2>
+    </div>
+  </div>
+
+  <div class="category-grid">
+    <article *ngFor="let category of categories" class="category-card" [style.background]="category.color">
+      <div class="category-icon" [style.color]="category.accent">+</div>
+      <h3>{{ category.title }}</h3>
+      <p>{{ category.subtitle }}</p>
+    </article>
+  </div>
+</section>
+
+<section class="section featured-section" id="featured">
+  <div class="section-header">
+    <div>
+      <p>Featured Selection</p>
+      <h2>Trending picks just for you</h2>
+    </div>
+  </div>
+
+  <div class="product-grid">
+    <article *ngFor="let product of featuredProducts" class="product-card">
+      <div class="product-image"></div>
+      <div class="product-body">
+        <span>{{ product.tag }}</span>
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.price }}</p>
+      </div>
+      <button class="btn btn-outline">Add to cart</button>
+    </article>
+  </div>
+</section>
+
+<section class="section promo-section">
+  <div class="promo-card">
+    <div class="promo-copy">
+      <span>Summer Sale</span>
+      <h2>Enjoy 50% off on summer essentials</h2>
+      <p>Upgrade your collection with premium pieces, fast shipping, and expert customer support.</p>
+      <a class="btn btn-primary" routerLink="/">Browse Sale</a>
+    </div>
+    <div class="promo-image"></div>
+  </div>
+
+  <div class="stats-row">
+    <div>
+      <strong>120+</strong>
+      <span>Brand partners</span>
+    </div>
+    <div>
+      <strong>10K+</strong>
+      <span>Orders delivered</span>
+    </div>
+    <div>
+      <strong>24/7</strong>
+      <span>Customer support</span>
+    </div>
+  </div>
+</section>
+
