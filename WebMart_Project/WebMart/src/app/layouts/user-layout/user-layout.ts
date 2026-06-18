@@ -5,7 +5,7 @@ import { Footer } from '../../shared/components/footer/footer';
 
 @Component({
   selector: 'app-user-layout',
-  imports: [RouterOutlet, Navbar, Footer],
+  imports: [Navbar, RouterOutlet, Footer],
   templateUrl: './user-layout.html',
   styleUrl: './user-layout.scss',
 })
