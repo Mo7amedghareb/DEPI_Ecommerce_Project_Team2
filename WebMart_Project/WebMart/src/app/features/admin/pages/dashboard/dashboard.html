@@ -1,1 +1,130 @@
-<p>dashboard works!</p>
+<div class="dashboard-page">
+  <div class="dashboard-header">
+    <div>
+      <h1>Dashboard Overview</h1>
+      <p>Welcome back, {{ adminName }}. Here's what's happening today.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-secondary">Download Report</button>
+      <button class="btn-primary">Create New Product</button>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    @for (stat of stats; track stat.label) {
+      <div class="stat-card">
+        <div class="stat-top">
+          <div class="stat-icon">
+            <i class="fa-solid" [ngClass]="stat.icon"></i>
+          </div>
+          <span class="stat-change" [ngClass]="stat.changeType">{{ stat.change }}</span>
+        </div>
+        <span class="stat-label">{{ stat.label }}</span>
+        <span class="stat-value">{{ stat.value }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="dashboard-grid">
+    <section class="chart-card">
+      <div class="chart-header">
+        <div>
+          <h2>Sales Overview</h2>
+          <p>Revenue growth over the last 30 days</p>
+        </div>
+        <div class="chart-toggle">
+          <button class="active">Weekly</button>
+          <button>Monthly</button>
+        </div>
+      </div>
+
+      <div class="bar-chart">
+        @for (bar of weeklyData; track bar.day) {
+          <div class="bar-column">
+            <div class="bar" [style.height.%]="barHeight(bar.value)"></div>
+            <span class="bar-label">{{ bar.day }}</span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section class="inventory-card">
+      <h2>Inventory Status</h2>
+
+      <div class="inventory-item">
+        <i class="fa-solid fa-triangle-exclamation warning-icon"></i>
+        <div class="inventory-text">
+          <span class="inventory-title">Low Stock Alert</span>
+          <span class="inventory-subtitle">5 items are below threshold</span>
+        </div>
+        <a href="javascript:void(0)">View</a>
+      </div>
+
+      <div class="inventory-item">
+        <i class="fa-solid fa-truck info-icon"></i>
+        <div class="inventory-text">
+          <span class="inventory-title">In Transit</span>
+          <span class="inventory-subtitle">Bulk shipment arriving tomorrow</span>
+        </div>
+        <a href="javascript:void(0)">Track</a>
+      </div>
+
+      <div class="inventory-item">
+        <i class="fa-solid fa-circle-check success-icon"></i>
+        <div class="inventory-text">
+          <span class="inventory-title">New Arrivals</span>
+          <span class="inventory-subtitle">12 new SKUs added today</span>
+        </div>
+        <a href="javascript:void(0)">Edit</a>
+      </div>
+
+      <div class="promo-card">
+        <span class="promo-title">Summer Sale Optimization</span>
+        <span class="promo-subtitle">Improve conversion by 15% with tailored discounts</span>
+        <button>Get Started</button>
+      </div>
+    </section>
+  </div>
+
+  <section class="orders-card">
+    <div class="orders-header">
+      <div>
+        <h2>Recent Orders</h2>
+        <p>Last 5 transactions from your store</p>
+      </div>
+      <a href="javascript:void(0)" class="view-all">View All Orders <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of recentOrders; track order.id + order.customer) {
+          <tr>
+            <td class="order-id">{{ order.id }}</td>
+            <td>
+              <div class="customer-cell">
+                <img [src]="order.avatar" [alt]="order.customer" />
+                <span>{{ order.customer }}</span>
+              </div>
+            </td>
+            <td>
+              <span class="status-badge" [ngClass]="statusClass(order.status)">{{ order.status }}</span>
+            </td>
+            <td class="order-total">{{ order.total }}.00 L.E</td>
+            <td class="order-actions">
+              <i class="fa-solid fa-ellipsis"></i>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </section>
+</div>

@@ -1,1 +1,173 @@
-<p>checkout works!</p>
+<div class="checkout-page">
+  <div class="checkout-grid">
+    <!-- Left Column -->
+    <div class="checkout-form">
+      <!-- Shipping Information -->
+      <section class="checkout-card">
+        <div class="card-header">
+          <span class="step-badge">1</span>
+          <h2>Shipping Information</h2>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" [(ngModel)]="shipping.firstName" name="firstName" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" [(ngModel)]="shipping.lastName" name="lastName" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Street Address</label>
+          <input type="text" [(ngModel)]="shipping.address" name="address" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" [(ngModel)]="shipping.city" name="city" />
+          </div>
+          <div class="form-group">
+            <label>Postal Code</label>
+            <input type="text" [(ngModel)]="shipping.postalCode" name="postalCode" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Delivery Method -->
+      <section class="checkout-card">
+        <div class="card-header">
+          <span class="step-badge">2</span>
+          <h2>Delivery Method</h2>
+        </div>
+
+        <label class="radio-option" [class.selected]="deliveryMethod === 'standard'">
+          <input type="radio" name="delivery" value="standard" [(ngModel)]="deliveryMethod" />
+          <div class="radio-content">
+            <span class="radio-title">Standard Shipping</span>
+            <span class="radio-subtitle">3-5 business days</span>
+          </div>
+          <span class="radio-price">Free</span>
+        </label>
+
+        <label class="radio-option" [class.selected]="deliveryMethod === 'express'">
+          <input type="radio" name="delivery" value="express" [(ngModel)]="deliveryMethod" />
+          <div class="radio-content">
+            <span class="radio-title">Express Delivery</span>
+            <span class="radio-subtitle">1-2 business days</span>
+          </div>
+          <span class="radio-price">50 L.E</span>
+        </label>
+      </section>
+
+      <!-- Payment Details -->
+      <section class="checkout-card">
+        <div class="card-header">
+          <span class="step-badge">3</span>
+          <h2>Payment Details</h2>
+        </div>
+
+        <label class="radio-option" [class.selected]="paymentMethod === 'card'">
+          <input type="radio" name="payment" value="card" [(ngModel)]="paymentMethod" />
+          <div class="radio-content">
+            <span class="radio-title">Credit Card</span>
+            <span class="radio-subtitle">Pay securely with your card</span>
+          </div>
+        </label>
+
+        @if (paymentMethod === 'card') {
+          <div class="card-fields">
+            <div class="form-group">
+              <label>Cardholder Name</label>
+              <input type="text" [(ngModel)]="payment.cardholderName" name="cardholderName" />
+            </div>
+
+            <div class="form-group">
+              <label>Card Number</label>
+              <input
+                type="text"
+                placeholder="0000 0000 0000 0000"
+                [(ngModel)]="payment.cardNumber"
+                name="cardNumber"
+              />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Expiry Date</label>
+                <input type="text" placeholder="MM/YY" [(ngModel)]="payment.expiryDate" name="expiryDate" />
+              </div>
+              <div class="form-group">
+                <label>CVC</label>
+                <input type="text" placeholder="123" [(ngModel)]="payment.cvc" name="cvc" />
+              </div>
+            </div>
+          </div>
+        }
+
+        <label class="radio-option" [class.selected]="paymentMethod === 'cod'">
+          <input type="radio" name="payment" value="cod" [(ngModel)]="paymentMethod" />
+          <div class="radio-content">
+            <span class="radio-title">Cash on Delivery</span>
+            <span class="radio-subtitle">Pay when your order arrives</span>
+          </div>
+        </label>
+      </section>
+    </div>
+
+    <!-- Right Column -->
+    <div class="checkout-summary">
+      <section class="checkout-card">
+        <h2>Order Summary</h2>
+
+        <div class="order-items">
+          @for (item of cartItems; track item.name) {
+            <div class="order-item">
+              <img [src]="item.image" [alt]="item.name" />
+              <div class="item-details">
+                <span class="item-name">{{ item.name }}</span>
+                <span class="item-variant">{{ item.variant }}</span>
+              </div>
+              <span class="item-price">{{ item.price }} L.E</span>
+            </div>
+          }
+        </div>
+
+        <div class="summary-totals">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>{{ subtotal }}.00 L.E</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>Calculated at next step</span>
+          </div>
+          <div class="summary-row">
+            <span>Estimated Tax</span>
+            <span>{{ estimatedTax }} L.E</span>
+          </div>
+        </div>
+
+        <div class="summary-total">
+          <span>Total</span>
+          <span>{{ total }}.00 L.E</span>
+        </div>
+
+        <button class="place-order-btn" (click)="placeOrder()">
+          <i class="fa-solid fa-lock"></i>
+          Place Order
+        </button>
+
+        <p class="secure-note">Secure 256-bit SSL encrypted payment</p>
+      </section>
+
+      <section class="testimonial-card">
+        <p>"The most seamless digital shopping experience I've had. Truly curated for the modern collector."</p>
+        <span>— Julian R., Verified Curator</span>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+.admin-shell {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.admin-content {
+  flex: 1;
+  overflow-x: hidden;
+}
+
+.admin-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 8px 14px;
+  width: 320px;
+
+  i {
+    color: #9ca3af;
+    font-size: 13px;
+  }
+
+  input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 13px;
+    width: 100%;
+  }
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  i.fa-bell {
+    color: #6b7280;
+    font-size: 16px;
+  }
+}
+
+.admin-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
