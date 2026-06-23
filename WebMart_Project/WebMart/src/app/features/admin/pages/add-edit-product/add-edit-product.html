@@ -1,1 +1,170 @@
-<p>add-edit-product works!</p>
+<div class="top-navbar d-flex justify-content-between align-items-center px-4 py-3">
+  <div class="d-flex align-items-center gap-3">
+    <span class="page-route-title">Add/Edit-Product</span>
+    <span class="badge custom-badge rounded-pill">#WM-8821</span>
+  </div>
+
+  <div class="d-flex align-items-center gap-3">
+    <div class="header-icons d-flex gap-3 text-muted fs-5">
+      <i class="bi bi-bell"></i>
+      <i class="bi bi-question-circle"></i>
+    </div>
+
+    <div class="vr mx-2 text-muted"></div>
+
+    <div class="user-profile d-flex align-items-center gap-3">
+      <div class="text-end d-none d-md-block">
+        <div class="user-name">Admin User</div>
+        <div class="user-role">Systems Overseer</div>
+      </div>
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Admin" class="rounded-circle avatar-img">
+    </div>
+  </div>
+</div>
+
+<div class="product-editor-container p-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h3 class="fw-bold mb-1 text-dark">Product Editor</h3>
+      <p class="text-muted mb-0 small">WebMart Inventory Management</p>
+    </div>
+    <div class="d-flex gap-2">
+      <button type="button" class="btn btn-light px-4 rounded-pill fw-bold">Cancel</button>
+      <button type="button" class="btn btn-primary px-4 rounded-pill fw-bold text-white">Save Product</button>
+    </div>
+  </div>
+
+  <form>
+    <div class="row g-4">
+      
+      <div class="col-lg-8">
+        
+        <div class="card custom-card mb-4">
+          <div class="card-body p-4">
+            <h6 class="card-section-title mb-4">
+              <span class="step-number">01</span> General Information
+            </h6>
+            
+            <div class="mb-4">
+              <label class="form-label fw-bold small text-dark mb-2">Product Name</label>
+              <input type="text" class="form-control custom-input" placeholder="e.g. Minimalist Ceramic Vessel">
+            </div>
+            
+            <div>
+              <label class="form-label fw-bold small text-dark mb-2">Description</label>
+              <textarea class="form-control custom-input" rows="4" placeholder="Describe the story, materials, and essence of this piece..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="card custom-card bg-light-blue mb-4">
+          <div class="card-body p-4">
+            <h6 class="card-section-title mb-4">
+              <span class="step-number">02</span> Logistics & Pricing
+            </h6>
+            
+            <div class="row g-4">
+              <div class="col-md-6">
+                <label class="form-label fw-bold small text-dark mb-2">Stock Quantity</label>
+                <input type="number" formControlName="stockQuantity" class="form-control custom-input bg-white">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold small text-dark mb-2">Category</label>
+                <select formControlName="category" class="form-select custom-input bg-white">
+                  <option>Home Decor</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold small text-dark mb-2">Price (L:E)</label>
+                <input type="text" formControlName="price" class="form-control custom-input bg-white" placeholder="L:E 0.00">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold small text-dark mb-2">Discount Price (L:E)</label>
+                <input type="text" formControlName="discountPrice" class="form-control custom-input bg-white" placeholder="L:E 0.00">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="col-lg-4">
+        
+        <div class="card custom-card mb-4">
+          <div class="card-body p-4">
+            <h6 class="card-section-title mb-4">
+              <span class="step-number">03</span> Product Media
+            </h6>
+            
+            <div class="upload-area d-flex flex-column align-items-center justify-content-center p-4 mb-3 rounded-3">
+              <i class="bi bi-cloud-arrow-up text-primary fs-1 mb-2"></i>
+              <h6 class="fw-bold mb-1 text-dark">Drag and drop assets</h6>
+              <p class="text-muted small text-center mb-3">High-resolution JPEG or PNG preferred. Max 10MB.</p>
+              <button type="button" class="btn btn-light-blue text-primary fw-bold px-4 py-2 rounded-pill small">SELECT FILES</button>
+            </div>
+            
+            <div class="image-gallery d-flex gap-2">
+              <div class="thumbnail-box active-thumbnail rounded-3">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=150&q=80" alt="Product" class="img-fluid w-100 h-100 object-fit-cover rounded-2">
+              </div>
+              <div class="thumbnail-box empty-box rounded-3 d-flex justify-content-center align-items-center">
+                <i class="bi bi-plus text-muted fs-4"></i>
+              </div>
+              <div class="thumbnail-box empty-box rounded-3"></div>
+              <div class="thumbnail-box empty-box rounded-3"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card custom-card bg-variants-card mb-4">
+          <div class="card-body p-4">
+            <h6 class="card-section-title mb-4">
+              <span class="step-number">04</span> Variants
+            </h6>
+            
+            <div class="mb-4">
+              <label class="form-label fw-bold small text-dark mb-3">Color Palette</label>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="color-badge border px-3 py-1 rounded-pill d-flex align-items-center gap-2">
+                  <span class="color-dot bg-dark rounded-circle"></span> 
+                  <span class="small fw-semibold text-secondary">Obsidian</span> 
+                  <i class="bi bi-x text-muted ms-1" style="cursor:pointer"></i>
+                </span>
+                <span class="color-badge border px-3 py-1 rounded-pill d-flex align-items-center gap-2">
+                  <span class="color-dot bg-sand rounded-circle"></span> 
+                  <span class="small fw-semibold text-secondary">Sand</span> 
+                  <i class="bi bi-x text-muted ms-1" style="cursor:pointer"></i>
+                </span>
+              </div>
+              <button type="button" class="btn btn-add-color text-primary fw-bold rounded-pill px-3 py-1 small border-0">
+                <i class="bi bi-plus"></i> Add Color
+              </button>
+            </div>
+            
+            <div>
+              <label class="form-label fw-bold small text-dark mb-3">Size availability</label>
+              <div class="d-flex gap-2">
+                <button type="button" class="btn size-btn unselected fw-bold">S</button>
+                <button type="button" class="btn size-btn selected fw-bold text-white border-0">M</button>
+                <button type="button" class="btn size-btn selected fw-bold text-white border-0">L</button>
+                <button type="button" class="btn size-btn unselected fw-bold">XL</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-card p-4 rounded-3 d-flex gap-3">
+          <div class="tip-icon rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+            ✨
+          </div>
+          <div>
+            <h6 class="fw-bold mb-1 small text-dark">Curator's Tip</h6>
+            <p class="mb-0 small text-muted lh-sm">High-end layouts benefit from clear imagery. Ensure your product photos use natural light and minimal backgrounds.</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </form>
+
+  
