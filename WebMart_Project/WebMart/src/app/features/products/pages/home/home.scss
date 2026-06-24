@@ -413,4 +413,33 @@
   .benefits-row {
     margin-top: 3rem;
   }
+  /* Small phone tweaks */
+  @media (max-width: 420px) {
+    .hero-title {
+      font-size: 1.95rem;
+      line-height: 1.08;
+    }
+
+    .product-image {
+      height: 150px;
+      background-position: center 30%;
+    }
+
+    .product-name {
+      font-size: 0.95rem;
+    }
+
+    .product-price {
+      font-size: 0.95rem;
+    }
+
+    .card-body {
+      padding: 1rem;
+    }
+
+    .category-card {
+      min-height: 220px;
+      padding: 1rem;
+    }
+  }
 }
