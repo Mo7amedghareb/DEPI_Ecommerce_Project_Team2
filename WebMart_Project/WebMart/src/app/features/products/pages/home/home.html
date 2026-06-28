@@ -73,15 +73,25 @@
     </div>
 
     <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-5">
+      <div *ngIf="loadingProducts" class="col">
+        <div class="alert alert-info">Loading products...</div>
+      </div>
+
+      <div *ngIf="errorMessage" class="col-12">
+        <div class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+      </div>
+
       <div class="col" *ngFor="let product of featuredProducts">
         <div
           class="card product-card h-100 rounded-4 shadow-sm"
-          [routerLink]="['/product', product.id]"
+          [routerLink]="['/product', product._id]"
         >
           <div
             class="product-image rounded-4 position-relative"
             [style.background-image]="'url(' + product.image + ')'"
-            [routerLink]="['/product', product.id]"
+            [routerLink]="['/product', product._id]"
           >
             <button
               class="favorite-btn btn rounded-circle position-absolute d-flex align-items-center justify-content-center"
@@ -119,7 +129,7 @@
 
             <a
               class="btn btn-primary w-100 rounded-3"
-              [routerLink]="['/product', product.id]"
+              [routerLink]="['/product', product._id]"
             >
               Details
             </a>

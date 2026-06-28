@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { ProductService } from '../../../../core/services/product.service';
+import { Product } from '../../../../core/models/product.model';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
-export class Home {
+export class Home implements OnInit {
   heroImage = '/images/background.png';
   saleImage = '/images/background-2.png';
 
@@ -31,48 +33,9 @@ export class Home {
     },
   ];
 
-  featuredProducts = [
-    {
-      id: 1,
-      name: 'Essential Crew Tee',
-      description: 'Optic White / Organic Cotton',
-      price: 250,
-      image: '/images/product-1.png',
-      colors: ['#e7dfd3', '#222222'],
-    },
-    {
-      id: 2,
-      name: 'Minimalist Trench Coat',
-      description: 'Light Beige / Cotton Blend',
-      price: 845,
-      image: '/images/product-2.png',
-      colors: ['#e7dfd3', '#222222'],
-    },
-    {
-      id: 3,
-      name: 'Archival Wool Overcoat',
-      description: 'Oatmeal Melange',
-      price: 845,
-      image: '/images/product-3.png',
-      colors: ['#e7dfd3', '#222222'],
-    },
-    {
-      id: 4,
-      name: 'Urban Velocity Sneaker',
-      description: 'Crimson / Performance Mesh',
-      price: 545,
-      image: '/images/product-4.png',
-      colors: ['#e7dfd3', '#222222'],
-    },
-    {
-      id: 5,
-      name: 'Structured Tote Bag',
-      description: 'Midnight Black / Calf Leather',
-      price: 450,
-      image: '/images/product-5.png',
-      colors: ['#e7dfd3', '#222222'],
-    },
-  ];
+  featuredProducts: Product[] = [];
+  loadingProducts = false;
+  errorMessage = '';
 
   benefits = [
     {
@@ -96,4 +59,28 @@ export class Home {
       subtitle: '24/7 dedicated assistance',
     },
   ];
+
+  constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.loadFeaturedProducts();
+  }
+
+  loadFeaturedProducts(): void {
+    this.loadingProducts = true;
+    this.errorMessage = '';
+
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        // Take first 5 products
+        this.featuredProducts = products.slice(0, 5);
+        this.loadingProducts = false;
+      },
+      error: (err) => {
+        console.error('Error loading products:', err);
+        this.errorMessage = 'Failed to load products. Please try again.';
+        this.loadingProducts = false;
+      }
+    });
+  }
 }

@@ -1,18 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  oldPrice: number;
-  image: string;
-  badge: string;
-  colors: string[];
-  sizes: string[];
-}
+import { ProductService } from '../../../../core/services/product.service';
+import { Product } from '../../../../core/models/product.model';
 
 @Component({
   selector: 'app-product-details',
@@ -27,99 +17,103 @@ export class ProductDetails implements OnInit {
   selectedSize = 'M';
   selectedColor = '#222222';
 
-  products: Product[] = [
-    {
-      id: 1,
-      name: 'Essential Crew Tee',
-      description: 'Optic White / Organic Cotton',
-      price: 250,
-      oldPrice: 325,
-      image: '/images/product-1.png',
-      badge: 'NEW',
-      colors: ['#e7dfd3', '#222222'],
-      sizes: ['S', 'M', 'L', 'XL'],
-    },
-    {
-      id: 2,
-      name: 'Minimalist Trench Coat',
-      description: 'Light Beige / Cotton Blend',
-      price: 845,
-      oldPrice: 1080,
-      image: '/images/product-2.png',
-      badge: 'NEW',
-      colors: ['#e7dfd3', '#222222'],
-      sizes: ['S', 'M', 'L', 'XL'],
-    },
-    {
-      id: 3,
-      name: 'Archival Wool Overcoat',
-      description: 'Oatmeal Melange',
-      price: 845,
-      oldPrice: 1040,
-      image: '/images/product-3.png',
-      badge: 'NEW',
-      colors: ['#e7dfd3', '#222222'],
-      sizes: ['S', 'M', 'L', 'XL'],
-    },
-    {
-      id: 4,
-      name: 'Urban Velocity Sneaker',
-      description: 'Crimson / Performance Mesh',
-      price: 545,
-      oldPrice: 680,
-      image: '/images/product-4.png',
-      badge: 'BEST SELLER',
-      colors: ['#e7dfd3', '#222222'],
-      sizes: ['S', 'M', 'L', 'XL'],
-    },
-    {
-      id: 5,
-      name: 'Structured Tote Bag',
-      description: 'Midnight Black / Calf Leather',
-      price: 450,
-      oldPrice: 580,
-      image: '/images/product-5.png',
-      badge: 'SALE 25% OFF',
-      colors: ['#e7dfd3', '#222222', '#ffffff'],
-      sizes: ['S', 'M', 'L', 'XL'],
-    },
-  ];
+  product: Product | null = null;
+  relatedProducts: Product[] = [];
+  loadingProductDetails = false;
+  loadingRelatedProducts = false;
+  errorMessage = '';
 
-  product: Product = this.products[4];
-
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const id = Number(params.get('id'));
-      this.product = this.products.find(p => p.id === id) || this.products[4];
-      this.selectedColor = this.product.colors[0] || this.selectedColor;
-      this.selectedSize = this.product.sizes[0] || this.selectedSize;
-      this.quantity = 1;
+      const id = params.get('id');
+      if (id) {
+        this.loadProductDetails(id);
+        this.loadRelatedProducts(id);
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  selectColor(color: string) {
+  loadProductDetails(id: string): void {
+    this.loadingProductDetails = true;
+    this.errorMessage = '';
+
+    this.productService.getProductById(id).subscribe({
+      next: (product) => {
+        this.product = product;
+        this.selectedColor = product.colors?.[0] || '#222222';
+        this.selectedSize = product.sizes?.[0] || 'M';
+        this.quantity = 1;
+        this.loadingProductDetails = false;
+      },
+      error: (err) => {
+        console.error('Error loading product:', err);
+        this.errorMessage = 'Failed to load product details. Please try again.';
+        this.loadingProductDetails = false;
+      }
+    });
+  }
+
+  loadRelatedProducts(currentProductId: string): void {
+    this.loadingRelatedProducts = true;
+
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        // Filter out current product and take first 5 related products
+        this.relatedProducts = products
+          .filter(p => p._id !== currentProductId)
+          .slice(0, 5);
+        this.loadingRelatedProducts = false;
+      },
+      error: (err) => {
+        console.error('Error loading related products:', err);
+        this.loadingRelatedProducts = false;
+      }
+    });
+  }
+
+  selectColor(color: string): void {
     this.selectedColor = color;
   }
 
-  selectSize(size: string) {
+  selectSize(size: string): void {
     this.selectedSize = size;
   }
 
-  increaseQuantity() {
+  increaseQuantity(): void {
     this.quantity += 1;
   }
 
-  decreaseQuantity() {
+  decreaseQuantity(): void {
     if (this.quantity > 1) {
       this.quantity -= 1;
     }
   }
 
-  selectTab(tab: string) {
+  selectTab(tab: string): void {
     this.activeTab = tab;
+  }
+
+  addToCart(): void {
+    if (this.product) {
+      console.log('Add to Cart:', {
+        productId: this.product._id,
+        quantity: this.quantity,
+        selectedColor: this.selectedColor,
+        selectedSize: this.selectedSize
+      });
+      
+    }
+  }
+
+  toggleFavourite(product: Product): void {
+    console.log('Toggle favourite for product:', product._id);
+    
   }
 }
 
