@@ -115,7 +115,7 @@ export class Cart {
   }
 
 
-  private recalcSubtotal(): void {
+  recalcSubtotal(): void {
     this.summary.subtotal = this.cartItems.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0
