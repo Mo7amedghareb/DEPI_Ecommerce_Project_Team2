@@ -19,7 +19,9 @@ export class Checkout implements OnInit {
   orderError = '';
 
   shipping = {
-    fullName: '',
+    // fullName: '',
+    firstName: '',
+    lastName: '',
     address: '',
     city: '',
     postalCode: '',
@@ -33,13 +35,14 @@ export class Checkout implements OnInit {
     cvc: '',
   };
 
-  constructor(private checkoutService: CheckoutService) {}
+  constructor(private checkoutService: CheckoutService) { }
 
   ngOnInit() {
     this.checkoutService.getCart().subscribe({
       next: (res: any) => {
-        this.cartItems = res.cart.items;
-        this.totalPrice = res.cart.totalPrice;
+        console.log(res); // شوف الشكل في الـ browser console
+        this.cartItems = res.items;
+        this.totalPrice = res.totalPrice;
         this.isLoading = false;
       },
       error: (err: any) => {
