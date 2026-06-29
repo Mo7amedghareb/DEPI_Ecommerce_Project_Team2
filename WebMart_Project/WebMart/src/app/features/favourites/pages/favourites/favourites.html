@@ -1,4 +1,4 @@
-<!-- Breadcrumb -->
+<!-- nav -->
 <nav aria-label="breadcrumb" class="px-4 px-md-5 pt-4">
   <ol class="breadcrumb mb-0" style="font-size: 11px; letter-spacing: 0.06em;">
     <li class="breadcrumb-item">
@@ -10,7 +10,7 @@
   </ol>
 </nav>
 
-<!-- Page Header -->
+<!-- header -->
 <section class="px-4 px-md-5 pt-3 pb-4">
   <h1 class="header mb-2" style="font-size: 40px;">Favourites</h1>
   <p class="head mb-0" style="max-width: 420px; font-size: 14px; line-height: 1.6;">
@@ -19,27 +19,27 @@
   </p>
 </section>
 
-<!-- Products Section -->
+<!-- Products -->
 <section class="px-4 px-md-5 pb-5">
 
-  <!-- Products Grid -->
+  <!-- products Grid -->
   @if (favourites.length > 0) {
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 g-3">
 
-      @for (product of favourites; track product.id) {
+      @for (product of favourites; track product._id) {
         <div class="col">
           <div class="card h-100 border position-relative product-card">
 
-            <!-- Delete Button -->
+            <!-- delete -->
             <button
               class="delete-btn position-absolute d-flex align-items-center justify-content-center border-0"
-              (click)="removeFromFavourites(product.id)"
+              (click)="removeFromFavourites(product._id)"
               title="Remove from favourites"
             >
               <i class="fa-solid fa-trash"></i>
             </button>
 
-            <!-- Product Image -->
+
             <div class="overflow-hidden product-img-wrapper">
               <img
                 [src]="product.image"
@@ -49,22 +49,20 @@
               />
             </div>
 
-            <!-- Card Body -->
             <div class="card-body d-flex flex-column px-3 py-2 gap-1">
               <h6 class="card-title mb-0 fw-semibold" style="font-size: 13px;">
                 {{ product.name }}
               </h6>
               <p class="text-secondary mb-0" style="font-size: 11px;">
-                {{ product.variant }}
+                {{ product.rating }}
               </p>
 
-              <!-- Price + Color Swatches -->
               <div class="d-flex align-items-center justify-content-between mt-1 mb-2">
                 <span class="fw-semibold" style="font-size: 13px;">
                   {{ product.price | number:'1.2-2' }} L:E
                 </span>
                 <div class="d-flex gap-1 align-items-center">
-                  @for (color of product.colors; track color) {
+                  @for (color of colors; track color) {
                     <span
                       class="color-dot rounded-circle"
                       [style.background-color]="color"
@@ -73,11 +71,11 @@
                 </div>
               </div>
 
-              <!-- Details Button -->
+              <!-- details  -->
               <button
                 class="btn btn-primary w-100 fw-semibold mt-auto"
                 style="font-size: 13px; padding: 8px 0;"
-                [routerLink]="['/product', product.id]"
+                [routerLink]="['/product', product._id]"
               >
                 Details
               </button>

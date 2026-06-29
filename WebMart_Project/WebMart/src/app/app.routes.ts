@@ -34,7 +34,20 @@ export const routes: Routes = [
           import('./features/checkout/pages/checkout/checkout').then(m => m.Checkout)
       },
     ]
-  },
+    
+
+    
+ {
+   path: 'admin',
+   component: AdminLayout,
+   children: [
+     {
+        path: 'order-details',
+       loadComponent: () => import('./features/admin/pages/order-details/order-details').then(m => m.OrderDetailsComponent)
+     }
+   ]
+  }
+  
 
   // Auth Pages 
   {
@@ -84,12 +97,12 @@ export const routes: Routes = [
       {
         path: 'add-product',
         loadComponent: () =>
-          import('./features/admin/pages/add-edit-product/add-edit-product').then(m => m.AddEditProduct)
+          import('./features/admin/pages/add-edit-product/add-edit-product').then(m => m.AddEditProductComponent)
       },
       {
         path: 'edit-product/:id',
         loadComponent: () =>
-          import('./features/admin/pages/add-edit-product/add-edit-product').then(m => m.AddEditProduct)
+          import('./features/admin/pages/add-edit-product/add-edit-product').then(m => m.AddEditProductComponent)
       },
       // not finished
       {

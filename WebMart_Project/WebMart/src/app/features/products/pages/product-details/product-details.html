@@ -1,6 +1,17 @@
 <section class="product-details-page py-5 bg-light">
   <div class="container py-5">
-    <div class="row g-4 align-items-center">
+    <!-- Loading State -->
+    <div *ngIf="loadingProductDetails" class="alert alert-info">
+      Loading product details...
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Product Details -->
+    <div *ngIf="product && !loadingProductDetails" class="row g-4 align-items-center">
       <div class="col-12 col-lg-6">
         <div class="details-image-card rounded-4 overflow-hidden shadow-sm">
           <div
@@ -72,7 +83,7 @@
               </button>
             </div>
 
-            <button class="btn btn-primary btn-lg px-4 rounded-4">
+            <button class="btn btn-primary btn-lg px-4 rounded-4" (click)="addToCart()">
               Add to Cart
             </button>
             <button class="btn btn-warning btn-lg px-4 rounded-4 text-white">
@@ -340,25 +351,33 @@
         </a>
       </div>
 
+      <div *ngIf="loadingRelatedProducts" class="alert alert-info">
+        Loading related products...
+      </div>
+
       <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-5">
-        <div class="col" *ngFor="let item of products">
+        <div class="col" *ngFor="let item of relatedProducts">
           <div class="complete-card rounded-4 shadow-sm bg-white overflow-hidden h-100">
             <div class="complete-image position-relative" [style.background-image]="'url(' + item.image + ')'">
-              <span class="badge bg-primary position-absolute top-0 start-0 m-3">NEW</span>
-              <button class="favorite-btn btn btn-light rounded-circle position-absolute end-0 top-0 m-3" type="button">
+              <span class="badge bg-primary position-absolute top-0 start-0 m-3">{{ item.badge }}</span>
+              <button 
+                class="favorite-btn btn btn-light rounded-circle position-absolute end-0 top-0 m-3" 
+                type="button"
+                (click)="toggleFavourite(item)"
+              >
                 <i class="fa-solid fa-heart text-danger"></i>
               </button>
             </div>
             <div class="p-3">
               <strong class="d-block mb-2">{{ item.name }}</strong>
-              <p class="text-secondary small mb-3">{{ item.description }}</p>
+              <p class="text-secondary small mb-3">{{ item.description| slice:0:60  }}</p>
               <div class="d-flex align-items-center justify-content-between mb-3">
                 <span class="fw-semibold">{{ item.price | number:'1.2-2' }} L.E</span>
                 <div class="d-flex gap-1">
                   <span class="color-dot" *ngFor="let color of item.colors" [style.background-color]="color"></span>
                 </div>
               </div>
-              <a class="btn btn-primary w-100 rounded-3" [routerLink]="['/product', item.id]">Details</a>
+              <a class="btn btn-primary w-100 rounded-3" [routerLink]="['/product', item._id]">Details</a>
             </div>
           </div>
         </div>

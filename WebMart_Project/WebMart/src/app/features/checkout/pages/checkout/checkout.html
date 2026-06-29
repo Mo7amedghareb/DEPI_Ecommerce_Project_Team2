@@ -119,55 +119,73 @@
     </div>
 
     <!-- Right Column -->
-    <div class="checkout-summary">
-      <section class="checkout-card">
-        <h2>Order Summary</h2>
+<div class="checkout-summary">
+  <section class="checkout-card">
+    <h2>Order Summary</h2>
 
-        <div class="order-items">
-          @for (item of cartItems; track item.name) {
-            <div class="order-item">
-              <img [src]="item.image" [alt]="item.name" />
-              <div class="item-details">
-                <span class="item-name">{{ item.name }}</span>
-                <span class="item-variant">{{ item.variant }}</span>
-              </div>
-              <span class="item-price">{{ item.price }} L.E</span>
+    @if (isLoading) {
+      <p style="text-align:center; color:#6b7280; padding: 20px 0;">Loading cart...</p>
+    } @else if (cartItems.length === 0) {
+      <p style="text-align:center; color:#6b7280; padding: 20px 0;">Your cart is empty.</p>
+    } @else {
+      <div class="order-items">
+        @for (item of cartItems; track item._id) {
+          <div class="order-item">
+            <img [src]="'http://localhost:5000/' + item.product.image"
+                 [alt]="item.product.name" />
+            <div class="item-details">
+              <span class="item-name">{{ item.product.name }}</span>
+              <span class="item-variant">Qty: {{ item.quantity }}</span>
             </div>
-          }
-        </div>
-
-        <div class="summary-totals">
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <span>{{ subtotal }}.00 L.E</span>
+            <span class="item-price">{{ item.price * item.quantity }} L.E</span>
           </div>
-          <div class="summary-row">
-            <span>Shipping</span>
-            <span>Calculated at next step</span>
-          </div>
-          <div class="summary-row">
-            <span>Estimated Tax</span>
-            <span>{{ estimatedTax }} L.E</span>
-          </div>
+        }
+      </div>
+
+      <div class="summary-totals">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>{{ totalPrice }} L.E</span>
         </div>
-
-        <div class="summary-total">
-          <span>Total</span>
-          <span>{{ total }}.00 L.E</span>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>Calculated at next step</span>
         </div>
+        <div class="summary-row">
+          <span>Estimated Tax</span>
+          <span>{{ estimatedTax }} L.E</span>
+        </div>
+      </div>
 
-        <button class="place-order-btn" (click)="placeOrder()">
-          <i class="fa-solid fa-lock"></i>
-          Place Order
-        </button>
+      <div class="summary-total">
+        <span>Total</span>
+        <span>{{ total }} L.E</span>
+      </div>
+    }
 
-        <p class="secure-note">Secure 256-bit SSL encrypted payment</p>
-      </section>
+    @if (orderSuccess) {
+      <div class="success-msg">
+        ✅ Order placed successfully!
+      </div>
+    } @else {
+      <button class="place-order-btn"
+              (click)="placeOrder()"
+              [disabled]="isLoading || cartItems.length === 0">
+        <i class="fa-solid fa-lock"></i>
+        Place Order
+      </button>
+      @if (orderError) {
+        <p style="color:red; font-size:12px; text-align:center; margin-top:8px;">
+          {{ orderError }}
+        </p>
+      }
+    }
 
-      <section class="testimonial-card">
-        <p>"The most seamless digital shopping experience I've had. Truly curated for the modern collector."</p>
-        <span>— Julian R., Verified Curator</span>
-      </section>
-    </div>
-  </div>
+    <p class="secure-note">Secure 256-bit SSL encrypted payment</p>
+  </section>
+
+  <section class="testimonial-card">
+    <p>"The most seamless digital shopping experience I've had. Truly curated for the modern collector."</p>
+    <span>— Julian R., Verified Curator</span>
+  </section>
 </div>

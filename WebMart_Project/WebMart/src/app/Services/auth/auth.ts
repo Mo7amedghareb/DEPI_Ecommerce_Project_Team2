@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, tap } from "rxjs";
 
 export interface SignupPayload {
   name: string;
@@ -22,10 +22,42 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   signup(data: SignupPayload): Observable<any> {
-    return this.http.post(`${this.baseUrl}/sign-up`, data);
+    return this.http.post(`${this.baseUrl}/sign-up`, data).pipe(
+      tap((res: any) => {
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('user', JSON.stringify(res.user));
+        }
+      })
+    );
   }
 
   signin(data: SigninPayload): Observable<any> {
-    return this.http.post(`${this.baseUrl}/sign-in`, data);
+    return this.http.post(`${this.baseUrl}/sign-in`, data).pipe(
+      tap((res: any) => {
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('user', JSON.stringify(res.user));
+        }
+      })
+    );
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  getUser(): any {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 }

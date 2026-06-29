@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CheckoutService } from './services/checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -8,48 +9,47 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './checkout.html',
   styleUrl: './checkout.scss',
 })
-export class Checkout {
+export class Checkout implements OnInit {
   deliveryMethod: 'standard' | 'express' = 'standard';
   paymentMethod: 'card' | 'cod' = 'card';
+  cartItems: any[] = [];
+  totalPrice = 0;
+  isLoading = true;
+  orderSuccess = false;
+  orderError = '';
 
   shipping = {
-    firstName: 'Mohamed',
-    lastName: 'Abdullah',
-    address: '136 Dokki St.',
-    city: 'Giza',
-    postalCode: '3337722',
+    // fullName: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    city: '',
+    postalCode: '',
+    country: 'Egypt',
   };
 
   payment = {
-    cardholderName: 'Mohamed Abdullah',
+    cardholderName: '',
     cardNumber: '',
     expiryDate: '',
     cvc: '',
   };
 
-  cartItems = [
-    {
-      name: 'Relaxed Linen Shirt',
-      variant: 'Optic White / Large',
-      price: 845,
-      image: 'assets/images/products/linen-shirt.jpg',
-    },
-    {
-      name: 'Precision Runner X1',
-      variant: 'Heritage Red / US 10',
-      price: 850,
-      image: 'assets/images/products/runner-x1.jpg',
-    },
-    {
-      name: 'The Meridian Timepiece',
-      variant: 'Brushed Steel / One Size',
-      price: 400,
-      image: 'assets/images/products/timepiece.jpg',
-    },
-  ];
+  constructor(private checkoutService: CheckoutService) { }
 
-  get subtotal(): number {
-    return this.cartItems.reduce((sum, item) => sum + item.price, 0);
+  ngOnInit() {
+    this.checkoutService.getCart().subscribe({
+      next: (res: any) => {
+        console.log(res); // شوف الشكل في الـ browser console
+        this.cartItems = res.items;
+        this.totalPrice = res.totalPrice;
+        this.isLoading = false;
+      },
+      error: (err: any) => {
+        console.error('Failed to load cart:', err);
+        this.isLoading = false;
+      },
+    });
   }
 
   get estimatedTax(): number {
@@ -57,15 +57,21 @@ export class Checkout {
   }
 
   get total(): number {
-    return this.subtotal + this.estimatedTax;
+    return this.totalPrice + this.estimatedTax;
   }
 
-  placeOrder(): void {
-    console.log('Order placed', {
-      shipping: this.shipping,
-      deliveryMethod: this.deliveryMethod,
-      paymentMethod: this.paymentMethod,
-      total: this.total,
+  placeOrder() {
+    this.orderError = '';
+    const paymentMethod = this.paymentMethod === 'cod' ? 'cash' : 'card';
+
+    this.checkoutService.placeOrder(this.shipping, paymentMethod).subscribe({
+      next: (res: any) => {
+        console.log('Order placed:', res.order);
+        this.orderSuccess = true;
+      },
+      error: (err: any) => {
+        this.orderError = err.error?.message ?? 'Something went wrong. Please try again.';
+      },
     });
   }
 }
