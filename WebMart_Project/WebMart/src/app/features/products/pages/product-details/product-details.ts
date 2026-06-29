@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../../../core/services/product.service';
@@ -25,7 +25,8 @@ export class ProductDetails implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -50,11 +51,13 @@ export class ProductDetails implements OnInit {
         this.selectedSize = product.sizes?.[0] || 'M';
         this.quantity = 1;
         this.loadingProductDetails = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error loading product:', err);
         this.errorMessage = 'Failed to load product details. Please try again.';
         this.loadingProductDetails = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -64,15 +67,16 @@ export class ProductDetails implements OnInit {
 
     this.productService.getProducts().subscribe({
       next: (products) => {
-        // Filter out current product and take first 5 related products
         this.relatedProducts = products
           .filter(p => p._id !== currentProductId)
           .slice(0, 5);
         this.loadingRelatedProducts = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error loading related products:', err);
         this.loadingRelatedProducts = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -107,13 +111,10 @@ export class ProductDetails implements OnInit {
         selectedColor: this.selectedColor,
         selectedSize: this.selectedSize
       });
-      
     }
   }
 
   toggleFavourite(product: Product): void {
     console.log('Toggle favourite for product:', product._id);
-    
   }
 }
-

@@ -370,7 +370,7 @@
             </div>
             <div class="p-3">
               <strong class="d-block mb-2">{{ item.name }}</strong>
-              <p class="text-secondary small mb-3">{{ item.description }}</p>
+              <p class="text-secondary small mb-3">{{ item.description| slice:0:60  }}</p>
               <div class="d-flex align-items-center justify-content-between mb-3">
                 <span class="fw-semibold">{{ item.price | number:'1.2-2' }} L.E</span>
                 <div class="d-flex gap-1">

@@ -10,7 +10,7 @@ import { Product, ProductsResponse, ProductResponse } from '../models/product.mo
 export class ProductService {
   private baseUrl = 'http://localhost:5000/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * Get all products with optional filters
@@ -33,8 +33,17 @@ export class ProductService {
       if (filters.sort) params = params.set('sort', filters.sort);
     }
 
-    return this.http.get<ProductsResponse>(`${this.baseUrl}/products`, { params }).pipe(
-      map(response => this.processProducts(response.products))
+    return this.http.get<ProductsResponse>(
+      `${this.baseUrl}/products`,
+      {
+        params,
+        headers: { 'Cache-Control': 'no-cache' }
+      }
+    ).pipe(
+      map(response => response?.products
+        ? this.processProducts(response.products)
+        : []
+      )
     );
   }
 
@@ -43,7 +52,10 @@ export class ProductService {
    * @param id - Product ID
    */
   getProductById(id: string): Observable<Product> {
-    return this.http.get<ProductResponse>(`${this.baseUrl}/products/${id}`).pipe(
+    return this.http.get<ProductResponse>(
+      `${this.baseUrl}/products/${id}`,
+      { headers: { 'Cache-Control': 'no-cache' } }
+    ).pipe(
       map(response => this.processProduct(response.product))
     );
   }
