@@ -27,7 +27,7 @@ export class Cart implements OnInit {
   promoApplied = false;
   promoError = false;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.loadCart();
@@ -36,9 +36,15 @@ export class Cart implements OnInit {
   loadCart(): void {
     this.cartService.GetUserCart().subscribe({
       next: (res) => {
-        //console.log(res);
-        this.cartItems = res.cart.items;
-        this.summary.subtotal = res.cart.totalPrice;
+        // لو السلة فاضية بييجي { items: [], totalPrice: 0 }
+        // لو فيها items بييجي { cart: { items: [...], totalPrice: ... } }
+        if (res.cart) {
+          this.cartItems = res.cart.items;
+          this.summary.subtotal = res.cart.totalPrice;
+        } else {
+          this.cartItems = res.items || [];
+          this.summary.subtotal = res.totalPrice || 0;
+        }
       },
       error: (err) => {
         console.log(err);
