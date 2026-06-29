@@ -1,1 +1,181 @@
-<p>home works!</p>
+<section
+  class="hero-section d-flex align-items-center"
+  [style.background-image]="'linear-gradient(90deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.65) 45%, rgba(255,255,255,0.15) 100%), url(' + heroImage + ')'"
+>
+  <div class="container-fluid px-4 px-lg-5">
+    <div class="row">
+      <div class="col-12 col-lg-7 col-xl-6 hero-content-wrapper">
+        <span class="badge rounded-pill hero-badge mb-4">
+          NEW COLLECTION 2026
+        </span>
+
+        <h1 class="hero-title mb-4">
+          Simple &<br />
+          Comfortable Online<br />
+          Shopping
+        </h1>
+
+        <p class="hero-text mb-4">
+          Experience the next generation of digital retail. We curate only the
+          essentials, designed for the modern lifestyle where comfort meets
+          uncompromising style.
+        </p>
+
+        <div class="hero-actions d-flex align-items-center flex-wrap gap-3">
+          <a class="btn btn-primary btn-lg px-4 py-3 fw-bold shadow-sm" routerLink="/">
+            Shop Now
+          </a>
+
+          <a class="btn btn-link text-dark text-decoration-none fw-bold" href="#featured">
+            View Lookbook
+            <i class="fa-solid fa-arrow-right ms-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="categories-section py-5">
+  <div class="container py-4">
+    <div class="mb-5">
+      <h2 class="section-heading mb-2">Shop by Category</h2>
+      <p class="text-secondary mb-0">Find exactly what you're looking for</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-12 col-md-4" *ngFor="let category of categories">
+        <div
+          class="category-card rounded-4 overflow-hidden position-relative d-flex align-items-end"
+          [style.background-image]="'linear-gradient(180deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.58) 100%), url(' + category.image + ')'"
+        >
+          <div class="category-content text-white position-relative">
+            <h3 class="fw-bold mb-2">{{ category.title }}</h3>
+            <p class="mb-3">{{ category.subtitle }}</p>
+            <a routerLink="/" class="text-white fw-bold text-decoration-none">
+              Explore Category
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="featured-section py-5" id="featured">
+  <div class="container py-4">
+    <div class="text-center mx-auto mb-5 featured-title">
+      <h2 class="section-heading mb-3">Featured Selection</h2>
+      <p class="text-secondary mb-0">
+        Curated pieces from our latest drop, chosen for their exceptional quality
+        and timeless design.
+      </p>
+    </div>
+
+    <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-5">
+      <div class="col" *ngFor="let product of featuredProducts">
+        <div
+          class="card product-card h-100 rounded-4 shadow-sm"
+          [routerLink]="['/product', product.id]"
+        >
+          <div
+            class="product-image rounded-4 position-relative"
+            [style.background-image]="'url(' + product.image + ')'"
+            [routerLink]="['/product', product.id]"
+          >
+            <button
+              class="favorite-btn btn rounded-circle position-absolute d-flex align-items-center justify-content-center"
+              type="button"
+              aria-label="Add to wishlist"
+              (click)="$event.stopPropagation()"
+            >
+              <i class="fa-solid fa-heart"></i>
+            </button>
+
+            <span class="badge product-badge rounded-pill position-absolute">
+              NEW SEASON
+            </span>
+          </div>
+
+          <div class="card-body px-2 pb-2">
+            <h3 class="product-name mb-1">{{ product.name }}</h3>
+            <p class="product-desc text-secondary mb-2">
+              {{ product.description }}
+            </p>
+
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <strong class="product-price">
+                {{ product.price | number:'1.2-2' }} L.E
+              </strong>
+
+              <div class="d-flex gap-1">
+                <span
+                  class="color-dot"
+                  *ngFor="let color of product.colors"
+                  [style.background-color]="color"
+                ></span>
+              </div>
+            </div>
+
+            <a
+              class="btn btn-primary w-100 rounded-3"
+              [routerLink]="['/product', product.id]"
+            >
+              Details
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="promo-section py-5">
+  <div class="container py-4">
+    <div
+      class="promo-card rounded-4 d-flex align-items-center overflow-hidden"
+      [style.background-image]="'linear-gradient(90deg, rgba(7,23,43,0.94) 0%, rgba(7,23,43,0.75) 45%, rgba(7,23,43,0.28) 100%), url(' + saleImage + ')'"
+    >
+      <div class="promo-content text-white">
+        <span class="offer-label d-block fw-bold mb-4">SEASONAL OFFER</span>
+
+        <h2 class="promo-title fw-bold mb-4">Summer Sale</h2>
+
+        <p class="promo-text mb-4">
+          Enjoy up to <strong>50% OFF</strong> on our entire Summer collection.
+          Refresh your style for the season of light.
+        </p>
+
+        <a class="btn btn-primary btn-lg px-4 py-3 fw-bold" routerLink="/">
+          Shop the Sale
+        </a>
+      </div>
+    </div>
+
+    <div class="row text-center benefits-row g-4">
+      <div class="col-6 col-md-3">
+        <i class="fa-solid fa-truck benefit-icon mb-3"></i>
+        <strong class="d-block mb-2">Free Shipping</strong>
+        <p class="text-secondary mb-0">On all orders over $150</p>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <i class="fa-solid fa-shield-halved benefit-icon mb-3"></i>
+        <strong class="d-block mb-2">Secure Payment</strong>
+        <p class="text-secondary mb-0">100% secure checkout</p>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <i class="fa-solid fa-arrows-rotate benefit-icon mb-3"></i>
+        <strong class="d-block mb-2">Easy Returns</strong>
+        <p class="text-secondary mb-0">30-day hassle-free returns</p>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <i class="fa-solid fa-headset benefit-icon mb-3"></i>
+        <strong class="d-block mb-2">Premium Support</strong>
+        <p class="text-secondary mb-0">24/7 dedicated assistance</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,4 +1,21 @@
+
 <app-add-edit-product>
     
 </app-add-edit-product><!-- <app-admin-sidebar /> -->
 <router-outlet />
+<div class="admin-shell">
+  <app-admin-sidebar />
+  <div class="admin-content">
+    <header class="admin-topbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search analytics or orders..." />
+      </div>
+      <div class="topbar-actions">
+        <i class="fa-solid fa-bell"></i>
+        <span class="admin-name">WebMart Admin <i class="fa-solid fa-chevron-down"></i></span>
+      </div>
+    </header>
+    <router-outlet />
+  </div>
+</div>

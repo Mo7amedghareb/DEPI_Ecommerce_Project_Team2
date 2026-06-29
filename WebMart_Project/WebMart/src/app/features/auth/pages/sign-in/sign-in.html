@@ -1,1 +1,80 @@
-<p>sign-in works!</p>
+<div class="page">
+  <div class="logo-area">
+    <h1 class="logo">WebMart</h1>
+    <p class="subtitle">DIGITAL CURATION BEGINS HERE</p>
+  </div>
+
+  <div class="card">
+    <h2>Sign In</h2>
+    <p class="card-subtitle">
+      Welcome back. Please enter your details.
+    </p>
+
+    <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+      <!-- Email -->
+      <div class="form-group">
+        <label>EMAIL ADDRESS</label>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Mohamed@gmail.com"
+        />
+        <div class="error" *ngIf="
+            signinForm.get('email')?.touched &&
+            signinForm.get('email')?.invalid
+          ">
+          Please enter a valid email.
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label>PASSWORD</label>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="********"
+        />
+        <div class="error" *ngIf="
+            signinForm.get('password')?.touched &&
+            signinForm.get('password')?.invalid
+          ">
+          Password is required (min 6 characters).
+        </div>
+      </div>
+
+      <!-- Error / Success Messages -->
+      <div class="alert error" *ngIf="errorMsg">{{ errorMsg }}</div>
+      <div class="alert success" *ngIf="successMsg">{{ successMsg }}</div>
+
+      <button
+        class="primary-btn"
+        type="submit"
+        [disabled]="loading"
+      >
+        <span *ngIf="!loading">Sign In</span>
+        <span *ngIf="loading">Signing in...</span>
+      </button>
+    </form>
+
+    <div class="divider">
+      <span></span>
+      <p>OR CONTINUE WITH</p>
+      <span></span>
+    </div>
+
+    <div class="social-buttons">
+      <button type="button" class="social google">Google</button>
+      <button type="button" class="social apple">Apple</button>
+    </div>
+
+    <p class="signin-text">
+      Don't have an account?
+      <a routerLink="/auth/sign-up">Create Account</a>
+    </p>
+
+    <p class="signin-text">
+      <a routerLink="/auth/forgot-password">Forgot your password?</a>
+    </p>
+  </div>
+</div>

@@ -1,1 +1,108 @@
-<p>sign-up works!</p>
+<div class="page">
+  <div class="logo-area">
+    <h1 class="logo">WebMart</h1>
+    <p class="subtitle">DIGITAL CURATION BEGINS HERE</p>
+  </div>
+
+  <div class="card">
+    <h2>Create Account</h2>
+    <p class="card-subtitle">
+      Join our community of elite digital curators.
+    </p>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <!-- Full Name -->
+      <div class="form-group">
+        <label>FULL NAME</label>
+        <input
+          type="text"
+          formControlName="fullName"
+          placeholder="Mohamed Ahmed"
+        />
+        <div class="error" *ngIf="
+            signupForm.get('fullName')?.touched &&
+            signupForm.get('fullName')?.invalid
+          ">
+          Full name is required (min 3 characters).
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label>EMAIL ADDRESS</label>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Mohamed@gmail.com"
+        />
+        <div class="error" *ngIf="
+            signupForm.get('email')?.touched &&
+            signupForm.get('email')?.invalid
+          ">
+          Please enter a valid email.
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label>PASSWORD</label>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="********"
+        />
+        <div class="error" *ngIf="
+            signupForm.get('password')?.touched &&
+            signupForm.get('password')?.invalid
+          ">
+          Password must be at least 6 characters.
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label>CONFIRM PASSWORD</label>
+        <input
+          type="password"
+          formControlName="confirmPassword"
+          placeholder="********"
+        />
+        <div class="error" *ngIf="
+            signupForm.errors?.['passwordsNotMatch'] &&
+            signupForm.get('confirmPassword')?.touched
+          ">
+          Passwords do not match.
+        </div>
+      </div>
+
+      <!-- Error / Success Messages -->
+      <div class="alert error" *ngIf="errorMsg">{{ errorMsg }}</div>
+      <div class="alert success" *ngIf="successMsg">{{ successMsg }}</div>
+
+      <button
+        class="primary-btn"
+        type="submit"
+        [disabled]="loading"
+      >
+        <span *ngIf="!loading">Create Account</span>
+        <span *ngIf="loading">Creating...</span>
+      </button>
+    </form>
+
+    <div class="divider">
+      <span></span>
+      <p>OR CONTINUE WITH</p>
+      <span></span>
+    </div>
+
+    <div class="social-buttons">
+      <button type="button" class="social google">Google</button>
+      <button type="button" class="social apple">Apple</button>
+    </div>
+
+    <p class="signin-text">
+      Already have an account?
+      <a routerLink="/auth/sign-in">Sign In</a>
+    </p>
+  </div>
+</div>

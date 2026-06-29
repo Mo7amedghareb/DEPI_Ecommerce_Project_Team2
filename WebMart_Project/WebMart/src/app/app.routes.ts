@@ -50,16 +50,19 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/auth/pages/sign-up/sign-up').then(m => m.SignUp)
       },
+      // not finished
       {
         path: 'forgot-password',
         loadComponent: () =>
           import('./features/auth/pages/forgot-password/forgot-password').then(m => m.ForgotPassword)
       },
+      // not finished
       {
         path: 'verify-identity',
         loadComponent: () =>
           import('./features/auth/pages/verify-identity/verify-identity').then(m => m.VerifyIdentity)
       },
+      // not finished
       {
         path: 'create-new-password',
         loadComponent: () =>
@@ -88,6 +91,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/pages/add-edit-product/add-edit-product').then(m => m.AddEditProduct)
       },
+      // not finished
       {
         path: 'order-details/:id',
         loadComponent: () =>
