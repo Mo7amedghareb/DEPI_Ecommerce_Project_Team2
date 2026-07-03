@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AdminSidebar } from './admin-sidebar';
-
+import { AdminSidebar } from '../../shared/components/admin-sidebar/admin-sidebar';
 @Component({
   selector: 'app-admin-layout',
   imports: [RouterOutlet, AdminSidebar],

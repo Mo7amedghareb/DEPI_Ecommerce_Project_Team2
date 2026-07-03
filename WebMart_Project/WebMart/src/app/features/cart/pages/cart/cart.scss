@@ -16,7 +16,7 @@ $border:#e8e8e8;
 }
 
 .cart-item-card {
-  background: #ffffff;
+  background: var(--bg-primary);
   border: 1px solid $border;
   border-radius: 10px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
@@ -53,11 +53,11 @@ $border:#e8e8e8;
   line-height: 1;
 
   &:hover:not(:disabled) {
-    background: #f0f0f0;
+    background: var(--bg-secondary);
   }
 
   &:disabled {
-    color: #ccc;
+    color: var(--text-muted);
     cursor: not-allowed;
   }
 }
@@ -71,6 +71,7 @@ $border:#e8e8e8;
   line-height: 32px;
   border-left: 1px solid $border;
   border-right: 1px solid $border;
+  color: var(--text-primary);
 }
 
 
@@ -92,7 +93,7 @@ $border:#e8e8e8;
 
 
 .summary-card {
-  background: #ffffff;
+  background: var(--bg-primary);
   border: 1px solid $border;
   border-radius: 10px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
@@ -108,6 +109,8 @@ $border:#e8e8e8;
   font-size: 13px;
   border-color: $border;
   border-right: none;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 
   &:focus {
     box-shadow: none;
@@ -120,10 +123,10 @@ $border:#e8e8e8;
   font-weight: 600;
   border-color: $border;
   color: var(--text-primary);
-  background: #f8f8f8;
+  background: var(--bg-secondary);
 
   &:hover {
-    background: #eeeeee;
+    background: var(--bg-secondary);
     border-color: $border;
     color: var(--text-primary);
   }
@@ -147,11 +150,11 @@ $border:#e8e8e8;
 
 .payment-icon {
   font-size: 18px;
-  color: #aaa;
+  color: var(--text-muted);
 }
 
 .offer-card {
-  background: #eef3ff;
+  background: var(--bg-secondary);
   border: 1px solid #d0e0ff;
   border-radius: 10px;
 }
@@ -179,7 +182,7 @@ $border:#e8e8e8;
 }
 
 .empty-cart {
-  background: #ffffff;
+  background: var(--bg-primary);
   border: 1px solid $border;
   border-radius: 10px;
   padding: 60px 24px;
@@ -192,5 +195,15 @@ $border:#e8e8e8;
   &:hover {
     background-color: var(--primary) !important;
     border-color: var(--primary) !important;
+  }
+}
+.summary-card {
+  span {
+    color: var(--text-primary);
+  }
+}
+:host {
+  h5, h6, .summary-card span, .offer-card h6 {
+    color: var(--text-primary);
   }
 }

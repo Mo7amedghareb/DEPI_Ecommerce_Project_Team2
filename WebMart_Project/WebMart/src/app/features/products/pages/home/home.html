@@ -80,41 +80,8 @@
       </div>
 
       <div class="col" *ngFor="let product of featuredProducts">
-        <div class="card product-card h-100 rounded-4 shadow-sm" [routerLink]="['/product', product._id]">
-          <div class="product-image rounded-4 position-relative" [style.background-image]="'url(' + product.image + ')'"
-            [routerLink]="['/product', product._id]">
-            <button
-              class="favorite-btn btn rounded-circle position-absolute d-flex align-items-center justify-content-center"
-              type="button" aria-label="Add to wishlist" (click)="$event.stopPropagation()">
-              <i class="fa-solid fa-heart"></i>
-            </button>
-
-            <span class="badge product-badge rounded-pill position-absolute">
-              NEW SEASON
-            </span>
-          </div>
-
-          <div class="card-body px-2 pb-2">
-            <h3 class="product-name mb-1">{{ product.name }}</h3>
-            <p class="product-desc text-secondary mb-2">
-              {{ product.description | slice:0:60 }}...
-            </p>
-
-            <div class="d-flex align-items-center justify-content-between mb-3">
-              <strong class="product-price">
-                {{ product.price | number:'1.2-2' }} L.E
-              </strong>
-
-              <div class="d-flex gap-1">
-                <span class="color-dot" *ngFor="let color of product.colors" [style.background-color]="color"></span>
-              </div>
-            </div>
-
-            <a class="btn btn-primary w-100 rounded-3" [routerLink]="['/product', product._id]">
-              Details
-            </a>
-          </div>
-        </div>
+        <app-product-card [product]="product" [isFavourite]="isFavourite(product._id)"
+          (favouriteToggled)="toggleFavourite($event)"></app-product-card>
       </div>
     </div>
   </div>

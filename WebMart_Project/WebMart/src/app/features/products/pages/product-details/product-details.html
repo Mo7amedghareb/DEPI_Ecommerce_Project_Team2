@@ -14,10 +14,7 @@
     <div *ngIf="product && !loadingProductDetails" class="row g-4 align-items-center">
       <div class="col-12 col-lg-6">
         <div class="details-image-card rounded-4 overflow-hidden shadow-sm">
-          <div
-            class="details-image rounded-4"
-            [style.background-image]="'url(' + product.image + ')'"
-          ></div>
+          <div class="details-image rounded-4" [style.background-image]="'url(' + product.image + ')'"></div>
         </div>
       </div>
 
@@ -47,26 +44,18 @@
           <div class="mb-4">
             <small class="text-uppercase text-secondary fw-semibold">Color</small>
             <div class="d-flex align-items-center gap-2 mt-2">
-              <span
-                class="color-chip rounded-circle"
-                *ngFor="let color of product.colors"
-                [style.background-color]="color"
-                [class.active]="selectedColor === color"
-                (click)="selectColor(color)"
-              ></span>
+              <span class="color-chip rounded-circle" *ngFor="let color of product.colors"
+                [style.background-color]="color" [class.active]="selectedColor === color"
+                (click)="selectColor(color)"></span>
             </div>
           </div>
 
           <div class="mb-4">
             <small class="text-uppercase text-secondary fw-semibold">Select Size</small>
             <div class="btn-group btn-group-sm d-flex flex-wrap gap-2 mt-2" role="group">
-              <button
-                type="button"
-                class="btn btn-outline-primary rounded-3"
-                [ngClass]="{ active: selectedSize === size }"
-                *ngFor="let size of product.sizes"
-                (click)="selectSize(size)"
-              >
+              <button type="button" class="btn btn-outline-primary rounded-3"
+                [ngClass]="{ active: selectedSize === size }" *ngFor="let size of product.sizes"
+                (click)="selectSize(size)">
                 {{ size }}
               </button>
             </div>
@@ -86,6 +75,16 @@
             <button class="btn btn-primary btn-lg px-4 rounded-4" (click)="addToCart()">
               Add to Cart
             </button>
+
+            <div *ngIf="cartSuccess" class="alert alert-success py-2 mt-2 rounded-3">
+              ✅ Added to cart successfully!
+            </div>
+            <div *ngIf="cartError" class="alert alert-danger py-2 mt-2 rounded-3">
+              ⚠️ {{ cartError }}
+            </div>
+            <div *ngIf="favouriteSuccess" class="alert alert-success py-2 mt-2 rounded-3">
+              ❤️ Added to favourites!
+            </div>
             <button class="btn btn-warning btn-lg px-4 rounded-4 text-white">
               Buy Now
             </button>
@@ -108,32 +107,20 @@
     <div class="tab-panel mt-5">
       <ul class="nav nav-tabs border-bottom-0 justify-content-start" role="tablist">
         <li class="nav-item" role="presentation">
-          <button
-            class="nav-link border-0 px-3 py-2"
-            [class.active]="activeTab === 'material'"
-            (click)="selectTab('material')"
-            type="button"
-          >
+          <button class="nav-link border-0 px-3 py-2" [class.active]="activeTab === 'material'"
+            (click)="selectTab('material')" type="button">
             Material & Care
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button
-            class="nav-link border-0 px-3 py-2"
-            [class.active]="activeTab === 'reviews'"
-            (click)="selectTab('reviews')"
-            type="button"
-          >
+          <button class="nav-link border-0 px-3 py-2" [class.active]="activeTab === 'reviews'"
+            (click)="selectTab('reviews')" type="button">
             Reviews (128)
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button
-            class="nav-link border-0 px-3 py-2"
-            [class.active]="activeTab === 'sizing'"
-            (click)="selectTab('sizing')"
-            type="button"
-          >
+          <button class="nav-link border-0 px-3 py-2" [class.active]="activeTab === 'sizing'"
+            (click)="selectTab('sizing')" type="button">
             Sizing
           </button>
         </li>
@@ -218,19 +205,25 @@
                     <span>5</span>
                     <span>92%</span>
                   </div>
-                  <div class="progress rounded-pill mb-3"><div class="progress-bar bg-primary rounded-pill" style="width: 92%"></div></div>
+                  <div class="progress rounded-pill mb-3">
+                    <div class="progress-bar bg-primary rounded-pill" style="width: 92%"></div>
+                  </div>
 
                   <div class="d-flex justify-content-between mb-2">
                     <span>4</span>
                     <span>6%</span>
                   </div>
-                  <div class="progress rounded-pill mb-3"><div class="progress-bar bg-primary rounded-pill" style="width: 6%"></div></div>
+                  <div class="progress rounded-pill mb-3">
+                    <div class="progress-bar bg-primary rounded-pill" style="width: 6%"></div>
+                  </div>
 
                   <div class="d-flex justify-content-between mb-2">
                     <span>3</span>
                     <span>2%</span>
                   </div>
-                  <div class="progress rounded-pill"><div class="progress-bar bg-primary rounded-pill" style="width: 2%"></div></div>
+                  <div class="progress rounded-pill">
+                    <div class="progress-bar bg-primary rounded-pill" style="width: 2%"></div>
+                  </div>
                 </div>
               </div>
 
@@ -243,7 +236,8 @@
               <div class="col-12 col-md-6">
                 <div class="review-card rounded-4 p-4 border">
                   <div class="d-flex align-items-center gap-3 mb-3">
-                    <span class="review-avatar rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center">
+                    <span
+                      class="review-avatar rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center">
                       J
                     </span>
                     <div>
@@ -252,7 +246,8 @@
                     </div>
                   </div>
                   <p class="mb-3 text-secondary">
-                    "Absolute Perfection. The leather is incredibly soft and the shape holds beautifully. Highly recommend."
+                    "Absolute Perfection. The leather is incredibly soft and the shape holds beautifully. Highly
+                    recommend."
                   </p>
                   <div class="rating-stars text-warning">
                     <i class="fa-solid fa-star"></i>
@@ -267,7 +262,8 @@
               <div class="col-12 col-md-6">
                 <div class="review-card rounded-4 p-4 border">
                   <div class="d-flex align-items-center gap-3 mb-3">
-                    <span class="review-avatar rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center">
+                    <span
+                      class="review-avatar rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center">
                       M
                     </span>
                     <div>
@@ -332,7 +328,8 @@
               </table>
             </div>
             <p class="text-secondary small mt-3 mb-0">
-              Measurements refer to body size, not garment dimensions. If you are between sizes, choose the larger size for a more relaxed fit.
+              Measurements refer to body size, not garment dimensions. If you are between sizes, choose the larger size
+              for a more relaxed fit.
             </p>
           </div>
         </div>
@@ -360,17 +357,16 @@
           <div class="complete-card rounded-4 shadow-sm bg-white overflow-hidden h-100">
             <div class="complete-image position-relative" [style.background-image]="'url(' + item.image + ')'">
               <span class="badge bg-primary position-absolute top-0 start-0 m-3">{{ item.badge }}</span>
-              <button 
-                class="favorite-btn btn btn-light rounded-circle position-absolute end-0 top-0 m-3" 
-                type="button"
-                (click)="toggleFavourite(item)"
-              >
-                <i class="fa-solid fa-heart text-danger"></i>
+              <button class="favorite-btn btn btn-light rounded-circle position-absolute end-0 top-0 m-3" type="button"
+                (click)="toggleFavourite(item)">
+                <i class="fa-heart" [class.fa-solid]="isFavourite(item._id)" [class.fa-regular]="!isFavourite(item._id)"
+                  [style.color]="isFavourite(item._id) ? '#dc2626' : '#9ca3af'">
+                </i>
               </button>
             </div>
             <div class="p-3">
               <strong class="d-block mb-2">{{ item.name }}</strong>
-              <p class="text-secondary small mb-3">{{ item.description| slice:0:60  }}</p>
+              <p class="text-secondary small mb-3">{{ item.description| slice:0:60 }}</p>
               <div class="d-flex align-items-center justify-content-between mb-3">
                 <span class="fw-semibold">{{ item.price | number:'1.2-2' }} L.E</span>
                 <div class="d-flex gap-1">

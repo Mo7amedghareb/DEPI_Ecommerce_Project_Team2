@@ -24,7 +24,7 @@
 
 .nav-links {
   position: absolute;
-  left: 50%;
+  left: 40%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
@@ -69,7 +69,7 @@
 }
 
 .search-box {
-  width: 300px;
+  width: 250px;
   height: 44px;
   background: #f4f7ff;
   border-radius: 16px;
@@ -127,10 +127,10 @@
 }
 
 .profile-btn {
-  width: 42px;
+  width: 82px;
   height: 42px;
   border: 0;
-  border-radius: 50%;
+  border-radius: 10%;
   background: #10253a;
   color: #ffffff;
   display: inline-flex;

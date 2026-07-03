@@ -51,3 +51,27 @@ p.head {
     border-color: var(--primary) !important;
   }
 }
+
+
+.product-card {
+  background: var(--bg-primary);
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.card-title {
+  color: var(--text-primary);
+}
+
+:host ::ng-deep {
+  .text-secondary {
+    color: var(--text-secondary) !important;
+  }
+}
+
+.breadcrumb-item a {
+  color: var(--text-secondary) !important;
+}
+
+.card-body span.fw-semibold {
+  color: var(--text-primary);
+}

@@ -9,24 +9,20 @@
 
       <!-- Links -->
       <nav class="nav-links d-none d-lg-flex align-items-center gap-4">
-        <a
-          routerLink="/"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="nav-link-custom"
-        >
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+          [class.active]="activeCategory === ''" class="nav-link-custom">
           Home
         </a>
-
-        <a routerLink="/men" routerLinkActive="active" class="nav-link-custom">
+        <a class="nav-link-custom" [class.active]="activeCategory === 'men'" (click)="navigateToCategory('men')"
+          style="cursor:pointer">
           Men
         </a>
-
-        <a routerLink="/women" routerLinkActive="active" class="nav-link-custom">
+        <a class="nav-link-custom" [class.active]="activeCategory === 'women'" (click)="navigateToCategory('women')"
+          style="cursor:pointer">
           Women
         </a>
-
-        <a routerLink="/accessories" routerLinkActive="active" class="nav-link-custom">
+        <a class="nav-link-custom" [class.active]="activeCategory === 'accessories'"
+          (click)="navigateToCategory('accessories')" style="cursor:pointer">
           Accessories
         </a>
       </nav>
@@ -37,27 +33,39 @@
         <!-- Search -->
         <div class="search-box d-none d-md-flex align-items-center">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input
-            type="search"
-            class="form-control border-0 shadow-none"
-            placeholder="Search curated items..."
-          />
+          <input type="search" class="form-control border-0 shadow-none" placeholder="Search curated items..."
+            [(ngModel)]="searchQuery" (keyup)="onSearch($event)" />
         </div>
 
-        <!-- Cart -->
-        <button class="icon-btn cart-btn" type="button" aria-label="Cart">
-          <i class="fa-solid fa-cart-shopping"></i>
+        <!-- Theme Toggle -->
+        <button class="icon-btn theme-btn" type="button" (click)="toggleTheme()" aria-label="Toggle dark mode">
+          <i class="fa-solid" [class.fa-moon]="!themeService.isDarkMode()"
+            [class.fa-sun]="themeService.isDarkMode()"></i>
         </button>
+
+
+        <!-- Cart -->
+        <a routerLink="/cart" class="icon-btn cart-btn" aria-label="Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
 
         <!-- Wishlist -->
-        <button class="icon-btn wishlist-btn" type="button" aria-label="Wishlist">
+        <a routerLink="/favourites" class="icon-btn wishlist-btn" aria-label="Wishlist">
           <i class="fa-solid fa-heart"></i>
-        </button>
+        </a>
 
-        <!-- Profile -->
-        <button class="profile-btn" type="button" aria-label="Profile">
-          <span>☰</span>
-        </button>
+        <ng-container *ngIf="authService.isLoggedIn()">
+          <button class="profile-btn" type="button" (click)="logout()" title="Logout">
+            Logout
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="!authService.isLoggedIn()">
+          <a routerLink="/auth/sign-in" class="profile-btn text-decoration-none">
+            Login
+          </a>
+        </ng-container>
+
       </div>
     </div>
   </div>

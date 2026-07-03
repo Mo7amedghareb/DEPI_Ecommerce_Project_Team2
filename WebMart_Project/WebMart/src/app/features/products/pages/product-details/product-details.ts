@@ -1,8 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../../../core/services/product.service';
-import { Product } from '../../../../core/models/product.model';
+import { Product } from '../../../../interfaces/i-product.model';
+import { CartService } from '../../../../core/services/cart.service';
+import { FavouritesService } from '../../../../core/services/favourites.service';
 
 @Component({
   selector: 'app-product-details',
@@ -23,13 +25,22 @@ export class ProductDetails implements OnInit {
   loadingRelatedProducts = false;
   errorMessage = '';
 
+  cartSuccess = false;
+  cartError = '';
+  favouriteSuccess = false;
+  favouriteIds = new Set<string>();  // ← يتبع كل المفضلين
+
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private productService: ProductService,
+    private cartService: CartService,
+    private favouritesService: FavouritesService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.loadFavouriteIds();
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
@@ -38,6 +49,20 @@ export class ProductDetails implements OnInit {
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+  }
+
+  loadFavouriteIds(): void {
+    this.favouritesService.getFavourites().subscribe({
+      next: (res) => {
+        this.favouriteIds = new Set(res.products.map((p: any) => p._id));
+        this.cdr.detectChanges();
+      },
+      error: () => {}
+    });
+  }
+
+  isFavourite(productId: string): boolean {
+    return this.favouriteIds.has(productId);
   }
 
   loadProductDetails(id: string): void {
@@ -81,40 +106,52 @@ export class ProductDetails implements OnInit {
     });
   }
 
-  selectColor(color: string): void {
-    this.selectedColor = color;
-  }
-
-  selectSize(size: string): void {
-    this.selectedSize = size;
-  }
-
-  increaseQuantity(): void {
-    this.quantity += 1;
-  }
-
-  decreaseQuantity(): void {
-    if (this.quantity > 1) {
-      this.quantity -= 1;
-    }
-  }
-
-  selectTab(tab: string): void {
-    this.activeTab = tab;
-  }
+  selectColor(color: string): void { this.selectedColor = color; }
+  selectSize(size: string): void { this.selectedSize = size; }
+  increaseQuantity(): void { this.quantity += 1; }
+  decreaseQuantity(): void { if (this.quantity > 1) this.quantity -= 1; }
+  selectTab(tab: string): void { this.activeTab = tab; }
 
   addToCart(): void {
-    if (this.product) {
-      console.log('Add to Cart:', {
-        productId: this.product._id,
-        quantity: this.quantity,
-        selectedColor: this.selectedColor,
-        selectedSize: this.selectedSize
-      });
-    }
+    if (!this.product) return;
+
+    this.cartService.addToCart(this.product._id, this.quantity).subscribe({
+      next: () => {
+        this.cartSuccess = true;
+        this.cartError = '';
+        this.cdr.detectChanges();
+        setTimeout(() => {
+          this.router.navigate(['/cart']);
+        }, 1000);
+      },
+      error: (err) => {
+        this.cartError = err.status === 401
+          ? 'Please login first'
+          : 'Failed to add to cart';
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   toggleFavourite(product: Product): void {
-    console.log('Toggle favourite for product:', product._id);
+    const isFav = this.favouriteIds.has(product._id);
+
+    if (isFav) {
+      this.favouritesService.removeFavourites(product._id).subscribe({
+        next: () => {
+          this.favouriteIds.delete(product._id);
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error(err)
+      });
+    } else {
+      this.favouritesService.addFavourite(product._id).subscribe({
+        next: () => {
+          this.favouriteIds.add(product._id);
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error(err)
+      });
+    }
   }
 }

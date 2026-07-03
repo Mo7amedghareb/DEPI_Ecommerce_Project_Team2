@@ -1,1 +1,42 @@
-<p>admin-sidebar works!</p>
+<aside class="admin-sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">
+      <i class="fa-solid fa-table-cells"></i>
+    </div>
+    <div class="logo-text">
+      <span class="logo-title">WebMart Admin</span>
+      <span class="logo-subtitle">The Digital Curator</span>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a routerLink="/admin/dashboard" routerLinkActive="active">
+      <i class="fa-solid fa-grip"></i>
+      Dashboard
+    </a>
+    <a routerLink="/admin/add-product" routerLinkActive="active">
+      <i class="fa-solid fa-box"></i>
+      Products
+    </a>
+    <a routerLink="/admin/order-details/1" routerLinkActive="active">
+      <i class="fa-solid fa-cart-shopping"></i>
+      Orders
+    </a>
+    <a routerLink="/admin/customer-management" routerLinkActive="active">
+      <i class="fa-solid fa-users"></i>
+      Customers
+    </a>
+    <a routerLink="/admin/settings" routerLinkActive="active">
+      <i class="fa-solid fa-gear"></i>
+      Settings
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <img src="/images/user1.jpg" alt="Alex Curator" />
+    <div class="footer-text">
+      <span class="footer-name">Alex Curator</span>
+      <span class="footer-role">Store Admin</span>
+    </div>
+  </div>
+</aside>

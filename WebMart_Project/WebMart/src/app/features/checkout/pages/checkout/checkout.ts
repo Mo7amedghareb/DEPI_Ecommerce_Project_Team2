@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CheckoutService } from './services/checkout.service';
+import { CheckoutService } from '../../../../core/services/checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -19,7 +19,6 @@ export class Checkout implements OnInit {
   orderError = '';
 
   shipping = {
-    // fullName: '',
     firstName: '',
     lastName: '',
     address: '',
@@ -35,19 +34,23 @@ export class Checkout implements OnInit {
     cvc: '',
   };
 
-  constructor(private checkoutService: CheckoutService) { }
+  constructor(
+    private checkoutService: CheckoutService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.checkoutService.getCart().subscribe({
       next: (res: any) => {
-        console.log(res); // شوف الشكل في الـ browser console
-        this.cartItems = res.items;
-        this.totalPrice = res.totalPrice;
+        this.cartItems = res.cart.items;       // ← عدّل ده
+        this.totalPrice = res.cart.totalPrice; // ← وده
         this.isLoading = false;
+        this.cdr.detectChanges();              // ← أضف ده
       },
       error: (err: any) => {
         console.error('Failed to load cart:', err);
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
     });
   }
@@ -64,13 +67,23 @@ export class Checkout implements OnInit {
     this.orderError = '';
     const paymentMethod = this.paymentMethod === 'cod' ? 'cash' : 'card';
 
-    this.checkoutService.placeOrder(this.shipping, paymentMethod).subscribe({
+    const shippingAddress = {
+      fullName: `${this.shipping.firstName} ${this.shipping.lastName}`,
+      address: this.shipping.address,
+      city: this.shipping.city,
+      postalCode: this.shipping.postalCode,
+      country: this.shipping.country,
+    };
+
+    this.checkoutService.placeOrder(shippingAddress, paymentMethod).subscribe({
       next: (res: any) => {
         console.log('Order placed:', res.order);
         this.orderSuccess = true;
+        this.cdr.detectChanges();
       },
       error: (err: any) => {
         this.orderError = err.error?.message ?? 'Something went wrong. Please try again.';
+        this.cdr.detectChanges();
       },
     });
   }

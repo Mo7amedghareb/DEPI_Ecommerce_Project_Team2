@@ -1,7 +1,7 @@
 :host {
   display: block;
-  background: #f5f7fb;
-  color: #15243a;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .product-details-page {
@@ -9,7 +9,7 @@
 }
 
 .details-image-card {
-  background: #ffffff;
+  background: var(--bg-primary);
   border-radius: 2rem;
 }
 
@@ -22,6 +22,7 @@
 
 .details-card {
   border: 1px solid rgba(15, 23, 42, 0.08);
+  background: var(--bg-primary);
 }
 
 .sale-badge {
@@ -36,14 +37,16 @@
 .product-title {
   font-size: clamp(2rem, 2.5vw, 2.7rem);
   font-weight: 800;
+  color: var(--text-primary);
 }
 
 .product-tagline {
   max-width: 520px;
+  color: var(--text-secondary);
 }
 
 .product-price {
-  color: #0d2d6f;
+  color: var(--primary);
   font-size: 2.1rem;
   font-weight: 700;
 }
@@ -51,11 +54,13 @@
 .old-price {
   display: block;
   margin-top: 0.5rem;
+  color: var(--text-muted);
 }
 
 .product-description {
   max-width: 620px;
   line-height: 1.8;
+  color: var(--text-secondary);
 }
 
 .color-chip {
@@ -69,14 +74,14 @@
 
 .color-chip.active {
   transform: scale(1.05);
-  border-color: #0b5eea;
+  border-color: var(--primary-light);
 }
 
 .btn-group .btn.active,
 .btn-group .btn:hover {
-  background: #0b5eea;
+  background: var(--primary-light);
   color: #ffffff;
-  border-color: #0b5eea;
+  border-color: var(--primary-light);
 }
 
 .quantity-control {
@@ -84,7 +89,7 @@
 }
 
 .quantity-control .btn {
-  color: #15243a;
+  color: var(--text-primary);
   font-size: 1.1rem;
 }
 
@@ -94,25 +99,27 @@
 
 .nav-tabs .nav-link {
   border: none;
-  color: rgba(21, 36, 58, 0.65);
+  color: var(--text-secondary);
   font-weight: 600;
   padding: 0.75rem 1rem;
   border-radius: 0;
 }
 
 .nav-tabs .nav-link.active {
-  color: #0b5eea;
-  border-bottom: 3px solid #0b5eea;
+  color: var(--primary-light);
+  border-bottom: 3px solid var(--primary-light);
   background: transparent;
 }
 
 .care-card {
   min-height: 100%;
+  background: var(--bg-primary);
 }
 
 .rating-value {
   font-size: 3rem;
   font-weight: 700;
+  color: var(--text-primary);
 }
 
 .rating-stars i {
@@ -120,7 +127,7 @@
 }
 
 .review-card {
-  background: #f8fbff;
+  background: var(--bg-secondary);
   border-color: rgba(15, 23, 42, 0.08);
 }
 
@@ -132,10 +139,12 @@
 .complete-look-section .section-heading {
   font-size: 1.65rem;
   font-weight: 700;
+  color: var(--text-primary);
 }
 
 .complete-card {
   transition: transform 0.2s ease;
+  background: var(--bg-primary);
 }
 
 .complete-card:hover {
@@ -240,5 +249,23 @@
 
   .complete-card .p-3 {
     padding: 0.75rem;
+  }
+}
+
+:host ::ng-deep {
+  .bg-white {
+    background: var(--bg-primary) !important;
+  }
+
+  .bg-light {
+    background: var(--bg-primary) !important;
+  }
+
+  .text-secondary {
+    color: var(--text-secondary) !important;
+  }
+
+  .text-dark {
+    color: var(--text-primary) !important;
   }
 }

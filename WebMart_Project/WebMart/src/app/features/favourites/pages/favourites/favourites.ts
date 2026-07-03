@@ -1,10 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { FavouritesService } from '../../../../Services/favourites/favourites-service';
-import { IFavouriteProduct } from '../../../../interfaces/i-favourite-product';
-
-
+import { FavouritesService } from '../../../../core/services/favourites.service';
+import { IFavouriteProduct } from '../../../../interfaces/i-favourite-product.model';
 
 @Component({
   selector: 'app-favourites',
@@ -14,9 +12,9 @@ import { IFavouriteProduct } from '../../../../interfaces/i-favourite-product';
 })
 export class Favourites implements OnInit {
   private readonly favouritesService = inject(FavouritesService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   favourites: IFavouriteProduct[] = [];
-
   colors = ['#d0cece', '#1a1a1a'];
 
   constructor() {}
@@ -27,26 +25,23 @@ export class Favourites implements OnInit {
 
   private loadFavourites(): void {
     this.favouritesService.getFavourites().subscribe({
-      next:((res) => {
-        console.log(res);
+      next: (res) => {
         this.favourites = res.products;
-      }),
-      error:((err) => {
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
         console.log(err);
-      })
-    })
+      }
+    });
   }
 
   removeFromFavourites(productId: string): void {
     this.favouritesService.removeFavourites(productId).subscribe({
-      next: (res) => {
-        this.favourites = this.favourites.filter(
-          (product) => product._id !== productId
-        );
+      next: () => {
+        this.favourites = this.favourites.filter(p => p._id !== productId);
+        this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error( err);
-      }
+      error: (err) => console.error(err)
     });
   }
 }

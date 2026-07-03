@@ -1,0 +1,66 @@
+.product-card {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 0;
+  border-radius: 1.8rem;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.2s ease;
+}
+
+.product-image {
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-body {
+  padding: 1.4rem;
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.product-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+.product-price {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid #d6d6d6;
+}
+
+.favorite-btn {
+  top: 16px;
+  left: 16px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: rgba(15, 20, 25, 0.35);
+  color: #ffffff;
+}
+
+.product-badge {
+  top: 16px;
+  right: 16px;
+  background: var(--bg-primary);
+  color: var(--primary);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  padding: 0.45rem 0.9rem;
+}
