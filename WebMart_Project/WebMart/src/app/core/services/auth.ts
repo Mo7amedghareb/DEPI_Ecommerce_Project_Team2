@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
-
+import { map } from 'rxjs/operators';
 export interface SignupPayload {
   name: string;
   email: string;
@@ -19,7 +19,7 @@ export interface SigninPayload {
 export class AuthService {
   private baseUrl = 'http://localhost:5000/api/auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   signup(data: SignupPayload): Observable<any> {
     return this.http.post(`${this.baseUrl}/sign-up`, data).pipe(
@@ -39,6 +39,24 @@ export class AuthService {
           localStorage.setItem('token', res.token);
           localStorage.setItem('user', JSON.stringify(res.user));
         }
+      })
+    );
+  }
+
+
+
+
+  signinAdmin(data: SigninPayload): Observable<any> {
+    return this.http.post(`${this.baseUrl}/sign-in`, data).pipe(
+      map((res: any) => {
+        if (res.token) {
+          if (res.user.role !== 'admin') {
+            throw new Error('Access denied. Admin only.');
+          }
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('user', JSON.stringify(res.user));
+        }
+        return res;
       })
     );
   }

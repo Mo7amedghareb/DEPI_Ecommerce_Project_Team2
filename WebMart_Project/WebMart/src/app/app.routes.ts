@@ -3,7 +3,7 @@ import { UserLayout } from './layouts/user-layout/user-layout';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
 
 export const routes: Routes = [
-  // User Pages > in user layout 
+  // User Pages
   {
     path: '',
     component: UserLayout,
@@ -36,7 +36,7 @@ export const routes: Routes = [
     ]
   },
 
-  // Auth Pages 
+  // Auth Pages
   {
     path: 'auth',
     children: [
@@ -50,19 +50,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/auth/pages/sign-up/sign-up').then(m => m.SignUp)
       },
-      // not finished
       {
         path: 'forgot-password',
         loadComponent: () =>
           import('./features/auth/pages/forgot-password/forgot-password').then(m => m.ForgotPassword)
       },
-      // not finished
       {
         path: 'verify-identity',
         loadComponent: () =>
           import('./features/auth/pages/verify-identity/verify-identity').then(m => m.VerifyIdentity)
       },
-      // not finished
       {
         path: 'create-new-password',
         loadComponent: () =>
@@ -71,7 +68,14 @@ export const routes: Routes = [
     ]
   },
 
-  // Admin Pages > in admin layout
+
+  {
+    path: 'admin/sign-in',
+    loadComponent: () =>
+      import('./features/admin/pages/sign-in/sign-in').then(m => m.AdminSignIn)
+  },
+
+  // Admin Pages 
   {
     path: 'admin',
     component: AdminLayout,
@@ -91,7 +95,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/pages/add-edit-product/add-edit-product').then(m => m.AddEditProduct)
       },
-      // not finished
       {
         path: 'order-details/:id',
         loadComponent: () =>

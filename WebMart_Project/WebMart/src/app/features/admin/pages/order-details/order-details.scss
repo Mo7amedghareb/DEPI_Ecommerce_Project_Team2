@@ -1,0 +1,533 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f5f7ff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+/* ====== TOP NAVBAR ====== */
+
+.top-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.page-route-title {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  text-transform: capitalize;
+}
+
+.custom-badge {
+  background: #e0edff;
+  color: #1d4ed8;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.header-icons i {
+  cursor: pointer;
+}
+
+.avatar-img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.user-role {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ====== MAIN LAYOUT (SIDEBAR + CONTENT) ====== */
+
+.order-processing-container {
+  display: flex;
+  gap: 24px;
+  padding: 20px 24px;
+}
+
+/* ----- Sidebar (left) ----- */
+
+.sidebar {
+  width: 260px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 18px;
+}
+
+.sidebar-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #1d4ed8;
+  margin-bottom: 4px;
+}
+
+.sidebar-subtitle {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.sidebar-nav {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-link {
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #111827;
+  text-decoration: none;
+  display: block;
+}
+
+.sidebar-link.active {
+  background: #e0edff;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-new-order {
+  padding: 9px 0;
+  border: none;
+  border-radius: 999px;
+  background: #1d4ed8;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sidebar-logout {
+  font-size: 13px;
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+/* ----- Content (right) ----- */
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Header (Processing Order + buttons) */
+
+.processing-header {
+  padding: 18px 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-group h1 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.title-group .date {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-processing,
+.btn-update,
+.btn-print {
+  border-radius: 999px;
+  padding: 7px 14px;
+  border: none;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.btn-processing {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.btn-update {
+  background: #1d4ed8;
+  color: #ffffff;
+}
+
+.btn-print {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+
+/* Cards layout (summary + shipping + table) */
+
+.cards-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Summary + shipping cards side by side */
+
+.summary-shipping-row {
+  display: flex;
+  gap: 16px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+/* Summary card */
+
+.summary-card {
+  flex: 0 0 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+.summary-card .watermark {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  width: 80px;
+  opacity: 0.8;
+}
+
+.card-label {
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #9ca3af;
+  margin-bottom: 10px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.info-title {
+  color: #9ca3af;
+}
+
+.total-amount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1d4ed8;
+}
+
+.visa-badge {
+  background: #eff6ff;
+  border-radius: 999px;
+  padding: 3px 8px;
+  margin-right: 6px;
+  font-size: 12px;
+}
+
+.dashed-divider {
+  height: 1px;
+  border-top: 1px dashed #e5e7eb;
+  margin: 10px 0;
+}
+
+/* Shipping card */
+
+.shipping-card {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.shipping-details {
+  max-width: 60%;
+}
+
+.customer-name {
+  margin: 4px 0 4px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.customer-address,
+.customer-phone {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.customer-phone {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.css-map-mockup {
+  flex: 0 0 160px;
+  border-radius: 10px;
+  background: radial-gradient(circle at 20% 20%, #1d4ed8, #020617);
+  opacity: 0.9;
+}
+
+/* Table */
+
+.table-wrapper {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+.table-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.table-header-top h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.stock-status {
+  font-size: 12px;
+  color: #16a34a;
+}
+
+.perfect-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.perfect-table th,
+.perfect-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.perfect-table th {
+  text-align: left;
+  font-size: 11px;
+  color: #9ca3af;
+  letter-spacing: 1px;
+}
+
+.col-product {
+  width: 45%;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.product-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.prod-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.prod-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.prod-text .name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.prod-text .desc {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Summary + total */
+
+.summary-box {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  color: #4b5563;
+}
+
+.text-green {
+  color: #16a34a;
+}
+
+.final-total-box {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.total-word {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.total-number {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1d4ed8;
+}
+
+/* Activity log */
+
+.activity-log-card {
+  margin-top: 14px;
+  background: #fef2f2;
+  border-radius: 12px;
+  padding: 14px 18px;
+  border: 1px solid #fecaca;
+}
+
+.log-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.log-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  margin-top: 5px;
+}
+
+.active-dot {
+  background: #22c55e;
+}
+
+.inactive-dot {
+  background: #e5e7eb;
+}
+
+.timeline-content .action-title {
+  margin: 0;
+  font-size: 13px;
+}
+
+.timeline-content .action-date {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ====== RESPONSIVE ====== */
+
+@media (max-width: 992px) {
+  .order-processing-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .summary-shipping-row {
+    flex-direction: column;
+  }
+}

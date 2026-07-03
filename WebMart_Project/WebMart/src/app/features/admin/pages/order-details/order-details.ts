@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-order-details',
-  imports: [],
+  standalone: true,
   templateUrl: './order-details.html',
-  styleUrl: './order-details.scss',
+  styleUrls: ['./order-details.scss'],
+  imports: [CommonModule],
 })
-export class OrderDetails {}
+export class OrderDetails {
+}
