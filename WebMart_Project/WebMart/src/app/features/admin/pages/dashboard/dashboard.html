@@ -6,22 +6,22 @@
     </div>
     <div class="header-actions">
       <button class="btn-secondary">Download Report</button>
-      <button class="btn-primary">Create New Product</button>
+      <button class="btn-primary" routerLink="/admin/add-product">Create New Product</button>
     </div>
   </div>
 
   <div class="stats-grid">
     @for (stat of stats; track stat.label) {
-      <div class="stat-card">
-        <div class="stat-top">
-          <div class="stat-icon">
-            <i class="fa-solid" [ngClass]="stat.icon"></i>
-          </div>
-          <span class="stat-change" [ngClass]="stat.changeType">{{ stat.change }}</span>
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon">
+          <i class="fa-solid" [ngClass]="stat.icon"></i>
         </div>
-        <span class="stat-label">{{ stat.label }}</span>
-        <span class="stat-value">{{ stat.value }}</span>
+        <span class="stat-change" [ngClass]="stat.changeType">{{ stat.change }}</span>
       </div>
+      <span class="stat-label">{{ stat.label }}</span>
+      <span class="stat-value">{{ stat.value }}</span>
+    </div>
     }
   </div>
 
@@ -40,10 +40,10 @@
 
       <div class="bar-chart">
         @for (bar of weeklyData; track bar.day) {
-          <div class="bar-column">
-            <div class="bar" [style.height.%]="barHeight(bar.value)"></div>
-            <span class="bar-label">{{ bar.day }}</span>
-          </div>
+        <div class="bar-column">
+          <div class="bar" [style.height.%]="barHeight(bar.value)"></div>
+          <span class="bar-label">{{ bar.day }}</span>
+        </div>
         }
       </div>
     </section>
@@ -92,7 +92,7 @@
         <h2>Recent Orders</h2>
         <p>Last 5 transactions from your store</p>
       </div>
-      <a href="javascript:void(0)" class="view-all">View All Orders <i class="fa-solid fa-arrow-right"></i></a>
+      <a routerLink="/admin/orders" class="view-all">View All Orders <i class="fa-solid fa-arrow-right"></i></a>
     </div>
 
     <table class="orders-table">
@@ -107,22 +107,24 @@
       </thead>
       <tbody>
         @for (order of recentOrders; track order.id + order.customer) {
-          <tr>
-            <td class="order-id">{{ order.id }}</td>
-            <td>
-              <div class="customer-cell">
-                <img [src]="order.avatar" [alt]="order.customer" />
-                <span>{{ order.customer }}</span>
-              </div>
-            </td>
-            <td>
-              <span class="status-badge" [ngClass]="statusClass(order.status)">{{ order.status }}</span>
-            </td>
-            <td class="order-total">{{ order.total }}.00 L.E</td>
-            <td class="order-actions">
-              <i class="fa-solid fa-ellipsis"></i>
-            </td>
-          </tr>
+        <tr>
+          <td class="order-id">{{ order.displayId }}</td>
+          <td>
+            <div class="customer-cell">
+              <img [src]="order.avatar" [alt]="order.customer" />
+              <span>{{ order.customer }}</span>
+            </div>
+          </td>
+          <td>
+            <span class="status-badge" [ngClass]="statusClass(order.status)">{{ order.status }}</span>
+          </td>
+          <td class="order-total">{{ order.total }}.00 L.E</td>
+          <td class="order-actions">
+            <button class="btn-delete" (click)="deleteOrder(order.id)">
+              <i class="fa-solid fa-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
         }
       </tbody>
     </table>

@@ -1,0 +1,77 @@
+<div class="orders-page">
+
+  <div class="page-header">
+    <div>
+      <h1>Orders Management</h1>
+      <p>Track, manage and fulfill all customer orders.</p>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="top-bar">
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Search by customer or order ID..."
+          [(ngModel)]="searchQuery" (input)="applyFilters()" />
+      </div>
+      <select [(ngModel)]="statusFilter" (change)="applyFilters()">
+        <option *ngFor="let s of statuses" [value]="s">
+          {{ s === 'all' ? 'All Statuses' : s | titlecase }}
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="isLoading" class="text-center py-5">Loading orders...</div>
+
+    <table *ngIf="!isLoading">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Date</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Update Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of filteredOrders">
+          <td class="order-id">#{{ order._id.slice(-6).toUpperCase() }}</td>
+          <td>
+            <div class="customer-cell">
+              <img [src]="getAvatar(order.user?.name)" [alt]="order.user?.name" />
+              <div>
+                <strong>{{ order.user?.name ?? 'Unknown' }}</strong>
+                <small>{{ order.user?.email }}</small>
+              </div>
+            </div>
+          </td>
+          <td>{{ formatDate(order.createdAt) }}</td>
+          <td>{{ order.totalPrice | number:'1.2-2' }} L.E</td>
+          <td>
+            <span class="status-badge" [ngClass]="statusClass(order.status)">
+              {{ order.status }}
+            </span>
+          </td>
+          <td>
+            <select class="status-select" [value]="order.status"
+              (change)="updateStatus(order._id, $any($event.target).value)">
+              <option *ngFor="let s of statuses.slice(1)" [value]="s">
+                {{ s | titlecase }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <button class="btn-delete" (click)="deleteOrder(order._id)">
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredOrders.length === 0">
+          <td colspan="7" class="text-center py-4">No orders found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

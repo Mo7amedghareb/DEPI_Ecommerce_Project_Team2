@@ -1,268 +1,152 @@
 <div class="settings-page">
 
-    <div class="profile-section">
+  <!-- Success Message -->
+  <div class="alert-success" *ngIf="saveSuccess">
+    ✅ Settings saved successfully!
+  </div>
 
-        <!-- Left Side -->
-        <div class="profile-text">
-            <h1>Account Profile</h1>
-
-            <p>
-                Manage your public presence and
-                personal identity within the curator
-                portal.
-            </p>
-        </div>
-
-        <!-- Right Card -->
-        <div class="profile-card">
-
-            <div class="profile-image">
-                <img src="/images/user4.avif" alt="">
-            </div>
-
-            <div class="profile-info">
-
-                <div class="top-row">
-
-                    <div class="input-group">
-                        <label>DISPLAY NAME</label>
-                        <input type="text" value="Mohamed Ghareb">
-                    </div>
-
-                    <div class="input-group">
-                        <label>EMAIL ADDRESS</label>
-                        <input type="email" value="Mg13@gmail.com">
-                    </div>
-
-                </div>
-
-                <div class="bio-group">
-                    <label>PROFESSIONAL BIO</label>
-
-                    <textarea>Digital curator specializing in high-end lifestyle goods and minimalist ecommerce architecture.</textarea>
-
-                </div>
-
-            </div>
-
-        </div>
-
+  <!-- Profile Section -->
+  <div class="profile-section">
+    <div class="profile-text">
+      <h1>Account Profile</h1>
+      <p>Manage your public presence and personal identity within the curator portal.</p>
     </div>
-<div class="store-section">
 
+    <div class="profile-card">
+      <div class="profile-image">
+        <img src="/images/user4.avif" alt="Admin" />
+      </div>
+
+      <div class="profile-info">
+        <div class="top-row">
+          <div class="input-group">
+            <label>DISPLAY NAME</label>
+            <input type="text" [(ngModel)]="profile.name" />
+          </div>
+          <div class="input-group">
+            <label>EMAIL ADDRESS</label>
+            <input type="email" [(ngModel)]="profile.email" />
+          </div>
+        </div>
+        <div class="bio-group">
+          <label>PROFESSIONAL BIO</label>
+          <textarea [(ngModel)]="profile.bio"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Store Section -->
+  <div class="store-section">
     <div class="store-card">
-
-        <div class="store-box">
-            <label>STORE NAME</label>
-            <input type="text" value="WebMart Curated">
-        </div>
-
-        <div class="store-box">
-            <label>PRIMARY CURRENCY</label>
-
-            <select>
-                <option>L:E — Egyptian Pound</option>
-            </select>
-        </div>
-
-        <div class="store-box">
-            <label>SYSTEM LANGUAGE</label>
-
-            <select>
-                <option>English (International)</option>
-            </select>
-        </div>
-
-        <div class="store-box">
-            <label>TIMEZONE</label>
-
-            <select>
-                <option>(GMT-05:00) Eastern Time</option>
-            </select>
-        </div>
-
+      <div class="store-box">
+        <label>STORE NAME</label>
+        <input type="text" value="WebMart Curated" />
+      </div>
+      <div class="store-box">
+        <label>PRIMARY CURRENCY</label>
+        <select><option>L:E — Egyptian Pound</option></select>
+      </div>
+      <div class="store-box">
+        <label>SYSTEM LANGUAGE</label>
+        <select><option>English (International)</option></select>
+      </div>
+      <div class="store-box">
+        <label>TIMEZONE</label>
+        <select><option>(GMT+02:00) Cairo Time</option></select>
+      </div>
     </div>
-
-
-    <!-- Right Text -->
     <div class="store-text">
-
-        <h1>Store Architecture</h1>
-
-        <p>
-            Define the regional and logistical
-            parameters for your digital
-            storefront.
-        </p>
-
+      <h1>Store Architecture</h1>
+      <p>Define the regional and logistical parameters for your digital storefront.</p>
     </div>
+  </div>
 
-</div>
-<div class="communication-section">
-
+  <!-- Communication Section -->
+  <div class="communication-section">
     <h2>Communication Pulse</h2>
-
-    <p class="comm-desc">
-        Tailor how the system reaches you for critical updates and marketing insights.
-    </p>
+    <p class="comm-desc">Tailor how the system reaches you for critical updates and marketing insights.</p>
 
     <div class="comm-cards">
-
-        <!-- Email -->
-        <div class="comm-card active-card">
-
-            <div class="card-top">
-                <div class="icon email-icon">
-                      <i class="bi bi-envelope"></i>
-                </div>
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <h3>Email Digest</h3>
-
-            <p>
-                Weekly performance summaries and curated store analytics delivered to your inbox.
-            </p>
+      <div class="comm-card active-card">
+        <div class="card-top">
+          <div class="icon email-icon"><i class="bi bi-envelope"></i></div>
+          <label class="switch"><input type="checkbox" checked /><span class="slider"></span></label>
         </div>
-        
-        <div class="comm-card">
+        <h3>Email Digest</h3>
+        <p>Weekly performance summaries and curated store analytics delivered to your inbox.</p>
+      </div>
 
-            <div class="card-top">
-                <div class="icon sms-icon">
-                     <i class="bi bi-chat-left-dots"></i>
-                </div>
-
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-
-            <h3>SMS Alerts</h3>
-
-            <p>
-                Real-time mobile notifications for urgent order issues or security events.
-            </p>
-
+      <div class="comm-card">
+        <div class="card-top">
+          <div class="icon sms-icon"><i class="bi bi-chat-left-dots"></i></div>
+          <label class="switch"><input type="checkbox" /><span class="slider"></span></label>
         </div>
+        <h3>SMS Alerts</h3>
+        <p>Real-time mobile notifications for urgent order issues or security events.</p>
+      </div>
 
-
-        <!-- Web Push -->
-        <div class="comm-card">
-
-            <div class="card-top">
-                <div class="icon web-icon">
-                    <i class="bi bi-caret-right"></i>
-                </div>
-
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-
-            <h3>Web Push</h3>
-
-            <p>
-                Browser notifications for customer messages and new inventory alerts.
-            </p>
-
+      <div class="comm-card">
+        <div class="card-top">
+          <div class="icon web-icon"><i class="bi bi-caret-right"></i></div>
+          <label class="switch"><input type="checkbox" checked /><span class="slider"></span></label>
         </div>
-
+        <h3>Web Push</h3>
+        <p>Browser notifications for customer messages and new inventory alerts.</p>
+      </div>
     </div>
+  </div>
 
-</div>
-<div class="security-section">
-
+  <!-- Security Section -->
+  <div class="security-section">
     <div class="security-text">
-        <h2>Security Protocol</h2>
-
-        <p>
-            Fortify your administrative access with multi-layered authentication and cryptographic standards.
-        </p>
+      <h2>Security Protocol</h2>
+      <p>Fortify your administrative access with multi-layered authentication and cryptographic standards.</p>
     </div>
-
 
     <div class="security-card">
-
-        <!-- Password -->
-        <div class="security-item">
-
-            <div class="security-left">
-
-                <div class="security-icon lock-icon">
-                    <i class="bi bi-lock-fill"></i>
-                </div>
-
-                <div>
-                    <h3>Update Master Password</h3>
-                    <span>Last changed 42 days ago</span>
-                </div>
-
-            </div>
-
-            <button class="update-btn">Update</button>
-
+      <div class="security-item">
+        <div class="security-left">
+          <div class="security-icon lock-icon"><i class="bi bi-lock-fill"></i></div>
+          <div>
+            <h3>Update Master Password</h3>
+            <span>Manage your login credentials</span>
+          </div>
         </div>
+        <button class="update-btn">Update</button>
+      </div>
 
-
-        <!-- Two Factor -->
-        <div class="security-item">
-
-            <div class="security-left">
-
-                <div class="security-icon shield-icon">
-                    <i class="bi bi-shield-fill-check"></i>
-                </div>
-
-                <div>
-                    <h3>Two-Factor Authentication</h3>
-                    <span>Require a verification code to log in</span>
-                </div>
-
-            </div>
-
-            <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider"></span>
-            </label>
-
+      <div class="security-item">
+        <div class="security-left">
+          <div class="security-icon shield-icon"><i class="bi bi-shield-fill-check"></i></div>
+          <div>
+            <h3>Two-Factor Authentication</h3>
+            <span>Require a verification code to log in</span>
+          </div>
         </div>
+        <label class="switch"><input type="checkbox" checked /><span class="slider"></span></label>
+      </div>
 
-
-        <div class="logout">
-            <i class="bi bi-box-arrow-right"></i>
-            Sign out of all active sessions
-        </div>
-
+      <div class="logout" (click)="signOutAll()" style="cursor:pointer">
+        <i class="bi bi-box-arrow-right"></i>
+        Sign out of all active sessions
+      </div>
     </div>
+  </div>
 
-</div>
+  <!-- Save Buttons -->
+  <div class="settings-buttons">
+    <button class="discard-btn" (click)="discardChanges()">Discard Changes</button>
+    <button class="save-btn" (click)="saveSettings()">Save Configurations</button>
+  </div>
 
-
-<div class="settings-buttons">
-
-    <button class="discard-btn">
-        Discard Changes
-    </button>
-
-    <button class="save-btn">
-        Save Configurations
-    </button>
-
-</div>
-<div class="admin-profile">
-
-    <div class="admin-avatar">
-        <i class="bi bi-person-fill"></i>
-    </div>
-
+  <!-- Admin Profile -->
+  <div class="admin-profile">
+    <div class="admin-avatar"><i class="bi bi-person-fill"></i></div>
     <div class="admin-info">
-        <h2>Alex Rivera</h2>
-        <p>ADMIN ACCESS</p>
+      <h2>{{ profile.name }}</h2>
+      <p>ADMIN ACCESS</p>
     </div>
+  </div>
 
-</div>
 </div>

@@ -3,233 +3,110 @@
   <div class="header">
     <div>
       <h1>Customer Management</h1>
-      <p>Review and manage your global customer base and their performance.</p>
+      <p>Review and manage your global customer base.</p>
     </div>
-
     <div class="header-btns">
-       <button class="export-btn"><i class="bi bi-download"></i>Export CSV</button>
-       <button class="add-btn"><i class="bi bi-person-plus"></i>Add New Customer</button>
-    </div>
-  </div>
-<div class="cards">
-
-  <div class="card">
-    <div class="icon bg-blue">
-      <i class="bi bi-people-fill"></i>
-    </div>
-
-    <div class="info">
-      <span>Total Customers</span>
-      <h2>4,285</h2>
+      <button class="export-btn"><i class="bi bi-download"></i> Export CSV</button>
+      <button class="add-btn" (click)="openAddModal()">
+        <i class="bi bi-person-plus"></i> Add New Customer
+      </button>
     </div>
   </div>
 
-
-  <div class="card">
-    <div class="icon bg-green">
-      <i class="bi bi-lightning-charge-fill"></i>
-    </div>
-
-    <div class="info">
-      <span>Active Now</span>
-      <h2>84</h2>
-    </div>
-  </div>
-
-
-  <div class="card">
-    <div class="icon bg-orange">
-      <i class="bi bi-graph-up-arrow"></i>
-    </div>
-
-    <div class="info">
-      <span>New This Month</span>
-      <h2>+124</h2>
+  <!-- Stats Cards -->
+  <div class="cards">
+    <div class="card">
+      <div class="icon bg-blue"><i class="bi bi-people-fill"></i></div>
+      <div class="info">
+        <span>Total Customers</span>
+        <h2>{{ customers.length }}</h2>
+      </div>
     </div>
   </div>
 
-</div>
-
+  <!-- Table -->
   <div class="table-card">
-
     <div class="top-bar">
-        <div class="search-box">
-            <i class="bi bi-search"></i>
-            <input
-             type="text"
-             placeholder="Search by name or email..."
-             >
-             </div>
-      <select>
-        <option>All Status</option>
-      </select>
-
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Search by name or email..."
+          [(ngModel)]="searchQuery" (input)="onSearch()" />
+      </div>
     </div>
 
-    <table>
+    <div *ngIf="isLoading" class="text-center py-4">Loading...</div>
 
+    <table *ngIf="!isLoading">
       <thead>
         <tr>
           <th>Customer</th>
           <th>Join Date</th>
-          <th>Status</th>
-          <th>Total Orders</th>
-          <th>LTV ($)</th>
+          <th>Role</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-       <tr>
-        <td>
-         <div class="customer-info">
-          <img src="./images/user1.jpg">
-
-          <div class="customer-details">
-           <h3>Julianne Moore</h3>
-           <p>julianne.m@example.com</p>
-          </div>
-         </div>
-        </td>
- 
-        <td>Oct 12,<br>2023</td>
-        <td><span class="active">Active</span></td>
-        <td class="orders">12 Orders</td>
-        <td>1,240.50 L:E</td>
-        <td><i class="bi bi-three-dots"></i></td>
-    </tr>
-
-  <tr>
-    <td>
-      <div class="customer-info">
-        <img src="/images/user2.jpg" alt="user">
-
-        <div class="customer-details">
-          <h3>Alexander Sterling</h3>
-          <p>a.sterling@design.co</p>
-        </div>
-      </div>
-    </td>
-
-    <td>
-      Sep 05,<br>
-      2023
-    </td>
-
-    <td>
-      <span class="active">Active</span>
-    </td>
-
-    <td class="orders">
-      8 Orders
-    </td>
-
-    <td>
-      895.00 L:E
-    </td>
-
-    <td>
-      <i class="bi bi-three-dots"></i>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <div class="customer-info">
-        <img src="/images/user3.jpg" alt="user">
-
-        <div class="customer-details">
-          <h3>Marcus Chen</h3>
-          <p>m.chen@tech.com</p>
-        </div>
-      </div>
-    </td>
-
-    <td>
-      Nov 01,<br>
-      2023
-    </td>
-
-    <td>
-      <span class="inactive">Inactive</span>
-    </td>
-
-    <td class="orders">
-      1 Order
-    </td>
-
-    <td>
-      45.00 L:E
-    </td>
-
-    <td>
-      <i class="bi bi-three-dots"></i>
-    </td>
-  </tr>
-</tbody>
+        <tr *ngFor="let customer of filteredCustomers">
+          <td>
+            <div class="customer-info">
+              <img [src]="getAvatar(customer.name)" [alt]="customer.name" />
+              <div class="customer-details">
+                <h3>{{ customer.name }}</h3>
+                <p>{{ customer.email }}</p>
+              </div>
+            </div>
+          </td>
+          <td>{{ formatDate(customer.createdAt) }}</td>
+          <td><span class="active">{{ customer.role }}</span></td>
+          <td>
+            <button class="btn-delete" (click)="deleteCustomer(customer._id)">
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredCustomers.length === 0">
+          <td colspan="4" class="text-center py-4">No customers found.</td>
+        </tr>
+      </tbody>
     </table>
-    <div class="table-footer">
-
-  <div class="showing">
-    Showing <span>1-10</span> of <strong>4,285</strong>
   </div>
 
-  <div class="pagination">
+  <!-- Add Customer Modal -->
+  <div class="modal-overlay" *ngIf="showAddModal" (click)="closeAddModal()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
 
-    <button class="page-arrow">
-      <i class="bi bi-chevron-left"></i>
-    </button>
+      <div class="modal-header">
+        <h2>Add New Customer</h2>
+        <button class="close-btn" (click)="closeAddModal()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
 
-    <button class="page active-page">1</button>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" [(ngModel)]="newCustomer.name" placeholder="John Doe" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" [(ngModel)]="newCustomer.email" placeholder="john@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" [(ngModel)]="newCustomer.password" placeholder="••••••••" />
+        </div>
 
-    <button class="page">2</button>
+        <div class="alert-error" *ngIf="addError">{{ addError }}</div>
+      </div>
 
-    <button class="page">3</button>
+      <div class="modal-footer">
+        <button class="btn-cancel" (click)="closeAddModal()">Cancel</button>
+        <button class="btn-confirm" (click)="submitAddCustomer()" [disabled]="isAdding">
+          {{ isAdding ? 'Adding...' : 'Add Customer' }}
+        </button>
+      </div>
 
-    <span class="dots">...</span>
-
-    <button class="page">429</button>
-
-    <button class="page-arrow">
-      <i class="bi bi-chevron-right"></i>
-    </button>
-
-  </div>
-
-</div>
-
-  </div>
-<div class="bottom-bar">
-
-  <div class="profile-card">
-    <img src="/images/user4.avif" alt="profile">
-
-    <div class="profile-info">
-      <h3>Marcus Aurelius</h3>
-      <p>Senior Curator</p>
     </div>
   </div>
 
-
-  <div class="online-card">
-
-    <div class="avatars">
-      <img src="/images/user1.jpg" alt="">
-      <img src="/images/user2.jpg" alt="">
-      <img src="/images/user3.jpg" alt="">
-    </div>
-
-    <span>12 staff currently online</span>
-
-    <div class="divider"></div>
-
-    <button>
-      <i class="bi bi-chat"></i>
-    </button>
-
-    <button>
-      <i class="bi bi-clipboard"></i>
-    </button>
-
-  </div>
-
-</div>
 </div>

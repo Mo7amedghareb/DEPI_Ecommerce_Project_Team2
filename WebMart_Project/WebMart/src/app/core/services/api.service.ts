@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ApiService {
   baseUrl = 'http://localhost:5000/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token') ?? '';
@@ -22,5 +22,16 @@ export class ApiService {
       ? this.getAuthHeaders().set('Content-Type', 'application/json')
       : new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<T>(`${this.baseUrl}${path}`, body, { headers });
+  }
+
+  delete<T>(path: string, auth = false) {
+    const headers = auth ? this.getAuthHeaders() : new HttpHeaders();
+    return this.http.delete<T>(`${this.baseUrl}${path}`, { headers });
+  }
+  put<T>(path: string, body: any, auth = false) {
+    const headers = auth
+      ? this.getAuthHeaders().set('Content-Type', 'application/json')
+      : new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<T>(`${this.baseUrl}${path}`, body, { headers });
   }
 }

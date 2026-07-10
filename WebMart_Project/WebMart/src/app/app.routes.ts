@@ -96,6 +96,11 @@ export const routes: Routes = [
           import('./features/admin/pages/add-edit-product/add-edit-product').then(m => m.AddEditProduct)
       },
       {
+        path: 'orders',
+        loadComponent: () =>
+          import('./features/admin/pages/orders/orders').then(m => m.Orders)
+      },
+      {
         path: 'order-details/:id',
         loadComponent: () =>
           import('./features/admin/pages/order-details/order-details').then(m => m.OrderDetails)
