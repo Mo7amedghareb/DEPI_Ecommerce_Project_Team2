@@ -23,7 +23,7 @@ export class Orders implements OnInit {
   constructor(
     private adminService: AdminService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadOrders();
@@ -49,10 +49,11 @@ export class Orders implements OnInit {
     let result = [...this.orders];
 
     if (this.searchQuery.trim()) {
-      const q = this.searchQuery.toLowerCase();
+      const q = this.searchQuery.toLowerCase().replace('#', '');
       result = result.filter(o =>
         o.user?.name?.toLowerCase().includes(q) ||
-        o._id.toLowerCase().includes(q)
+        o._id.toLowerCase().includes(q) ||
+        o._id.slice(-6).toLowerCase().includes(q)
       );
     }
 
