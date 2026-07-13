@@ -56,8 +56,8 @@ Additionally, the website provides an **admin panel** that allows administrators
 |-----------|------|
 | Figma | UI/UX Design |
 | Angular | Frontend Development |
-| ASP.NET | Backend Development |
-| SQL Server | Database |
+| Node.js, Express.js | Backend Development |
+| Mongodb, Mongose ODM | Database |
 | Git & GitHub | Version Control |
 
 ---
